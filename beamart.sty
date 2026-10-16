@@ -1,0 +1,176 @@
+% !TeX root = merlin/main.tex
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamart}[2026/10/15 Aqua and mint academic slides]
+
+\RequirePackage[T1]{fontenc}
+\RequirePackage{lmodern}
+\RequirePackage{physics}
+\RequirePackage{tikz}
+\usetikzlibrary{arrows.meta,calc,positioning}
+
+% Palette: change these values to restyle the entire deck.
+\definecolor{DCPBlue}{HTML}{EDF7FC}
+\definecolor{DCPMint}{HTML}{DDF3EA}
+\definecolor{DCPAccent}{HTML}{006B70}
+\definecolor{DCPInk}{HTML}{263D47}
+\definecolor{DCPMuted}{HTML}{536D78}
+\definecolor{DCPCurve}{HTML}{B5DDD9}
+
+\setbeamercolor{normal text}{fg=DCPInk}
+\setbeamercolor{structure}{fg=DCPAccent}
+\setbeamercolor{alerted text}{fg=DCPAccent}
+\setbeamercolor{frametitle}{fg=DCPAccent}
+\setbeamercolor{title}{fg=DCPAccent}
+\setbeamercolor{author}{fg=DCPInk}
+\setbeamerfont{title}{size=\fontsize{21}{26},series=\bfseries}
+% Screen units: 1 CSS px = 0.75 bp (1/96 inch).
+\setbeamerfont{frametitle}{size=\fontsize{16bp}{25bp},series=\bfseries}
+\setbeamerfont{normal text}{size=\fontsize{9bp}{22bp}}
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{12bp}{16bp}}
+\AtBeginDocument{\usebeamerfont{normal text}\setlength{\parindent}{0pt}}
+\setbeamerfont{alerted text}{series=\bfseries}
+\setbeamersize{text margin left=10mm,text margin right=10mm}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{headline}{}
+\setbeamertemplate{itemize item}{\small\raisebox{0.15ex}{\textbullet}}
+
+% Edit these values to change the space around displayed equations.
+\newcommand{\DCPDisplaySpacing}{%
+  \setlength{\abovedisplayskip}{3pt}% Before the equation
+  \setlength{\belowdisplayskip}{3pt}% After the equation
+  \setlength{\abovedisplayshortskip}{2pt}% Short preceding line
+  \setlength{\belowdisplayshortskip}{2pt}% After, in that case
+}
+% Font-size commands can reset these lengths. Reapply them at each display,
+% preserving any existing display setup (including that of amsmath).
+\AtBeginDocument{%
+  \DCPDisplaySpacing
+  \everydisplay\expandafter{\the\everydisplay\DCPDisplaySpacing}%
+}
+
+% A native vector background: the middle stays quiet for text and figures.
+\setbeamertemplate{background}{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \coordinate (SW) at (current page.south west);
+    \coordinate (NE) at (current page.north east);
+    \shade[left color=DCPBlue,right color=DCPMint,shading angle=18]
+      (SW) rectangle (NE);
+    \begin{scope}[shift={(SW)},x=\paperwidth,y=\paperheight]
+      \fill[white,opacity=.26]
+        (0,.07) .. controls (.20,.25) and (.24,.78) .. (.53,1)
+        -- (0,1) -- cycle;
+      \fill[DCPCurve,opacity=.20]
+        (.66,0) .. controls (.93,.12) and (.83,.40) .. (1,.50)
+        -- (1,0) -- cycle;
+      \draw[white,opacity=.50,line width=.6pt]
+        (.73,0) .. controls (.99,.15) and (.88,.43) .. (1,.57);
+      \fill[white,opacity=.22]
+        (.83,1) .. controls (.85,.88) and (.96,.84) .. (1,.86)
+        -- (1,1) -- cycle;
+    \end{scope}
+  \end{tikzpicture}%
+}
+
+\setbeamertemplate{frametitle}{%
+  \vspace{3mm}%
+  {\usebeamerfont{frametitle}\insertframetitle\par}%
+  \vspace{1mm}%
+  {\fontsize{1}{1}\selectfont\color{DCPAccent!45}\rule{9mm}{.7pt}\par}%
+  \vspace{2mm}%
+}
+\setbeamertemplate{footline}{%
+  \hfill{\color{DCPMuted}\fontsize{7}{9}\selectfont
+    \insertframenumber}\hspace{7mm}\vspace{4mm}%
+}
+
+% Public theme commands; metadata is deliberately separate from slide content.
+\newcommand{\emphword}[1]{{\color{DCPAccent}\bfseries #1}}
+
+% Overview sequence: one sentence, followed by one explanation per overlay.
+\setbeamerfont{catch sentence}{size=\fontsize{16bp}{22bp}}
+\newlength{\catchsentencewidth}
+\setlength{\catchsentencewidth}{.95\paperwidth}% Increase to widen the sentence.
+% Change only the colour, so highlighting never shifts the sentence's layout.
+\newcommand<>{\catchterm}[1]{\alt#2{{\color{DCPAccent}#1}}{#1}}
+% Optional argument: distance from the top of the page to the sentence centre.
+\newcommand{\catchsentence}[2][45mm]{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[align=center,text width=\catchsentencewidth,inner sep=0pt,
+      font=\usebeamerfont{catch sentence},text=DCPInk]
+      at ([yshift=-#1]current page.north) {#2};
+  \end{tikzpicture}%
+}
+% First overlay: centred sentence. Later overlays: raised sentence.
+\newcommand{\overviewstatement}[1]{%
+  \only<1>{\catchsentence{#1}}%
+  \only<2->{\catchsentence[28mm]{#1}}%
+}
+% Arguments: step number, term heading, explanation (ordinary LaTeX text).
+\newcommand{\termexplanation}[3]{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[circle,draw=DCPAccent!45,text=DCPAccent,inner sep=0pt,
+      minimum size=6mm,font=\usebeamerfont{normal text}]
+      at ([xshift=13mm,yshift=-48mm]current page.north west) {#1};
+    \node[anchor=north west,align=left,text width=34mm,inner sep=0pt,
+      font=\usebeamerfont{normal text}\bfseries,text=DCPAccent]
+      at ([xshift=22mm,yshift=-45mm]current page.north west) {#2};
+    \node[anchor=north west,align=left,text width=85mm,inner sep=0pt,
+      font=\usebeamerfont{normal text},text=DCPInk]
+      at ([xshift=65mm,yshift=-45mm]current page.north west) {#3};
+  \end{tikzpicture}%
+}
+
+\newcommand{\DCPPresenterName}{}
+\newcommand{\DCPPresenterAffiliation}{}
+\newcommand{\presenter}[2]{%
+  \renewcommand{\DCPPresenterName}{#1}%
+  \renewcommand{\DCPPresenterAffiliation}{#2}%
+  \author{#1}\institute{#2}%
+}
+\newcommand{\DCPVenue}{}
+\newcommand{\venue}[1]{\renewcommand{\DCPVenue}{#1}}
+\newcommand{\DCPCoauthors}{}
+\newcommand{\coauthors}[1]{\renewcommand{\DCPCoauthors}{#1}}
+
+% #1: optional TikZ image-node settings, e.g. yshift=-3mm for a tall photo.
+% #2: local photo; #3: name; #4: affiliation. Images are never stretched.
+% The image is enlarged inside the circular clip for a closer portrait crop.
+\newcommand{\coauthorportrait}[4][]{%
+  \begin{minipage}[t]{43mm}
+    \centering
+    \begin{tikzpicture}
+      \path[use as bounding box] (-.94,-.94) rectangle (.94,.94);
+      \begin{scope}
+        \clip (0,0) circle (.88);
+        \node[inner sep=0pt,#1] at (0,0)
+          {\includegraphics[width=26mm]{#2}};
+      \end{scope}
+      \draw[white,line width=1.5pt] (0,0) circle (.90);
+      \draw[DCPAccent!28,line width=.45pt] (0,0) circle (.93);
+    \end{tikzpicture}\par\vspace{1.5mm}
+    {\fontsize{11}{13}\selectfont\bfseries #3\par}
+    {\fontsize{9}{12}\selectfont\color{DCPMuted}#4\par}
+  \end{minipage}%
+}
+
+\setbeamertemplate{title page}{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[align=center,text width=.92\paperwidth,inner sep=0pt]
+      at ([yshift=-21mm]current page.north)
+      {{\usebeamerfont{title}\color{DCPAccent}\inserttitle\par}};
+    \node[align=center,text width=.8\paperwidth,inner sep=0pt]
+      at ([yshift=-42mm]current page.north)
+      {{\fontsize{15}{19}\selectfont\bfseries\DCPPresenterName\par}
+       \vspace{1mm}
+       {\fontsize{11}{14}\selectfont\color{DCPMuted}\DCPPresenterAffiliation\par}};
+    \node[align=center,inner sep=0pt,font=\fontsize{9}{11}\selectfont,
+      text=DCPMuted] at ([yshift=-54mm]current page.north) {Joint work with};
+    \node[align=center,inner sep=0pt] at ([yshift=-70mm]current page.north)
+      {\DCPCoauthors};
+    \node[align=center,inner sep=0pt,font=\fontsize{8}{10}\selectfont,
+      text=DCPMuted] at ([yshift=4mm]current page.south)
+      {\DCPVenue\ifx\DCPVenue\empty\else\quad\fi\insertdate};
+  \end{tikzpicture}%
+}
+
+\endinput

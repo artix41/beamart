@@ -1,0 +1,81 @@
+% !TeX root = main.tex
+% !LW recipe = latexmk (presentation)
+\documentclass[aspectratio=169,11pt,t]{beamer}
+\usepackage{beamart}
+
+\title{Polynomial-time simulation of\\
+  non-Clifford quantum error correction}
+\presenter{Arthur Pesah}{FU Berlin}
+\date{}                       % Set the talk date here.
+\venue{}                      % Set the venue here.
+\coauthors{%
+  \coauthorportrait[yshift=-3mm]{assets/serban-cercelescu.png}
+    {Serban Cercelescu}{Oxford}%
+  \hspace{9mm}%
+  \coauthorportrait[yshift=-4.5mm]{assets/mark-koch.jpg}{Mark Koch}{Oxford}%
+}
+\hypersetup{pdfauthor={Arthur Pesah},
+  pdftitle={Polynomial-time simulation of non-Clifford quantum error correction}}
+
+\setlength{\catchsentencewidth}{.95\paperwidth}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+% The sentence is defined once; <2>, <3>, ... select the highlighted term.
+% This is example wording for the overview, ready to adapt as the talk develops.
+\newcommand{\overviewSentence}{
+  \catchterm<2>{Most magic-state preparation protocols} can be \catchterm<3>{simulated} in \catchterm<4>{polynomial-time}
+}
+
+% One Beamer frame produces four successive pages in the PDF.
+\begin{frame}{Overview}
+  \overviewstatement{\overviewSentence}
+
+  \only<2>{%
+    \termexplanation{1}{Most magic-state preparation protocols}{%
+      Gates outside the Clifford group, such as $T$ and CCZ.\par
+      These resources occur in many fault-tolerant protocols.%
+    }%
+  }
+  \only<3>{%
+    \termexplanation{2}{Simulated}{%
+      The process of running the simulation on a classical computer.\par
+      This allows for the study of quantum systems without the need for actual quantum hardware.%
+    }%
+  }
+  \only<4>{%
+    \termexplanation{3}{Polynomial time}{%
+      For the supported circuit class, the simulation cost grows
+      polynomially with circuit size.\par
+      The claim is restricted to this class of circuits.%
+    }%
+  }
+\end{frame}
+
+\begin{frame}{Phase polynomial states}
+  % \vspace{10mm}
+    \usebeamerfont{normal text}%
+    \emphword{Unitary gate set}: the third-order CNOT-dihedral group
+    $$
+    G_3=\langle \text{CNOT}, T, X \rangle
+    $$
+
+    Commuting $T$ through the CNOTs: all diagonal non-Clifford gates of the third-level, i.e. $T$, $\text{CS}$, $\text{CCZ}$
+
+    \emphword{Initial state}: $\ket{0}^{\otimes n} \ket{+}^{\otimes m}$
+
+    \emphword{Question}: what happens when we apply $G_3$ gates to $\ket{0}^{\otimes n} \ket{+}^{\otimes m}$
+
+  % \vspace{4mm}
+  % \begin{beamercolorbox}[sep=3mm,wd=\textwidth]{normal text}
+  %   \centering\usebeamerfont{normal text}
+  %   \emphword{Which non-Clifford QEC circuits\\
+  %     can we simulate efficiently?}
+  % \end{beamercolorbox}
+\end{frame}
+
+\end{document}
