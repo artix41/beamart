@@ -26,7 +26,7 @@
 % Screen units: 1 CSS px = 0.75 bp (1/96 inch).
 \setbeamerfont{frametitle}{size=\fontsize{16bp}{25bp},series=\bfseries}
 \setbeamerfont{normal text}{size=\fontsize{9bp}{22bp}}
-\setbeamerfont{itemize/enumerate body}{size=\fontsize{12bp}{16bp}}
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{9bp}{22bp}}
 \AtBeginDocument{\usebeamerfont{normal text}\setlength{\parindent}{0pt}}
 \setbeamerfont{alerted text}{series=\bfseries}
 \setbeamersize{text margin left=10mm,text margin right=10mm}
@@ -76,7 +76,7 @@
   {\usebeamerfont{frametitle}\insertframetitle\par}%
   \vspace{1mm}%
   {\fontsize{1}{1}\selectfont\color{DCPAccent!45}\rule{9mm}{.7pt}\par}%
-  \vspace{2mm}%
+  \vspace{0mm}%
 }
 \setbeamertemplate{footline}{%
   \hfill{\color{DCPMuted}\fontsize{7}{9}\selectfont
@@ -86,17 +86,90 @@
 % Public theme commands; metadata is deliberately separate from slide content.
 \newcommand{\emphword}[1]{{\color{DCPAccent}\bfseries #1}}
 
+% A centred roadmap with pale section numbers and a fine connecting rule.
+% Section-slide entries are read from the previous run's auxiliary file.
+% Usage: \outlineslide (latexmk handles the required rerun automatically).
+\setbeamerfont{outline title}{size=\fontsize{16bp}{22bp}}
+\setbeamerfont{outline number}{size=\fontsize{24bp}{24bp},series=\bfseries}
+\newcommand{\DCPOutlineEntries}{}
+\newcommand{\DCPStoreOutlineEntry}[2]{%
+  \g@addto@macro\DCPOutlineEntries{\DCPOutlineEntry{#1}{#2}}%
+}
+\newcount\DCPOutlineRow
+\newcommand{\DCPOutlineEntry}[2]{%
+  \ifnum\DCPOutlineRow>0\relax
+    \draw[DCPAccent!35,line width=.65pt]
+      (10,{-12*(\DCPOutlineRow-1)}) -- (10,{-12*\DCPOutlineRow});
+  \fi
+  \fill[DCPAccent!65] (10,{-12*\DCPOutlineRow}) circle[radius=.7mm];
+  \node[outline number] at (4,{-12*\DCPOutlineRow}) {#1};
+  \node[outline title] at (19,{-12*\DCPOutlineRow}) {#2};
+  \advance\DCPOutlineRow by 1\relax
+}
+\newcommand{\outlineslide}{%
+  \begin{frame}[c]{Outline}
+    \centering
+    \begin{tikzpicture}[x=1mm,y=1mm,
+      outline number/.style={anchor=east,text=DCPAccent!35,
+        inner sep=0pt,font=\usebeamerfont{outline number}},
+      outline title/.style={anchor=west,inner sep=0pt,text=DCPInk,
+        font=\usebeamerfont{outline title}}]
+      \DCPOutlineRow=0\relax
+      \DCPOutlineEntries
+    \end{tikzpicture}
+  \end{frame}%
+}
+
+% Section divider: a large pale number, a fine rule, and a prominent title.
+% Registers the section automatically; the optional argument adds a subtitle.
+\setbeamerfont{section slide title}{size=\fontsize{24bp}{29bp},series=\bfseries}
+\setbeamerfont{section slide number}{size=\fontsize{64bp}{64bp},series=\bfseries}
+\setbeamerfont{section slide subtitle}{size=\fontsize{10bp}{15bp}}
+\newcommand{\DCPSectionNumber}{%
+  \arabic{section}%
+}
+\newcommand{\sectionslide}[2][]{%
+  \section{#2}%
+  \protected@write\@auxout{}{%
+    \string\DCPStoreOutlineEntry{\arabic{section}}{\unexpanded{#2}}%
+  }%
+  \begin{frame}[plain]
+    \begin{tikzpicture}[remember picture,overlay]
+      \node[inner sep=0pt,text=DCPAccent!24,
+        font=\usebeamerfont{section slide number}]
+        at ([xshift=29mm,yshift=-45mm]current page.north west)
+        {\DCPSectionNumber};
+      \draw[DCPAccent!45,line width=.8pt]
+        ([xshift=52mm,yshift=-29mm]current page.north west) --
+        ([xshift=52mm,yshift=-61mm]current page.north west);
+      \node[anchor=west,align=flush left,text width=86mm,inner sep=0pt,
+        text=DCPInk,font=\usebeamerfont{section slide title},
+        execute at begin node={\hyphenpenalty=10000\relax}]
+        at ([xshift=62mm,yshift=-45mm]current page.north west) {#2};
+      \ifstrempty{#1}{}{%
+        \node[anchor=north west,align=flush left,text width=86mm,
+          inner sep=0pt,text=DCPMuted,
+          font=\usebeamerfont{section slide subtitle}]
+          at ([xshift=62mm,yshift=-67mm]current page.north west) {#1};
+      }%
+    \end{tikzpicture}%
+  \end{frame}%
+}
+
 % Overview sequence: one sentence, followed by one explanation per overlay.
-\setbeamerfont{catch sentence}{size=\fontsize{16bp}{22bp}}
+\setbeamerfont{catch sentence}{size=\fontsize{16bp}{20bp}}
+\setbeamerfont{overview explanation}{parent=normal text,size=\fontsize{9bp}{13bp}}
 \newlength{\catchsentencewidth}
-\setlength{\catchsentencewidth}{.95\paperwidth}% Increase to widen the sentence.
+\setlength{\catchsentencewidth}{.95\paperwidth}% Presentations may override this.
 % Change only the colour, so highlighting never shifts the sentence's layout.
 \newcommand<>{\catchterm}[1]{\alt#2{{\color{DCPAccent}#1}}{#1}}
 % Optional argument: distance from the top of the page to the sentence centre.
 \newcommand{\catchsentence}[2][45mm]{%
   \begin{tikzpicture}[remember picture,overlay]
-    \node[align=center,text width=\catchsentencewidth,inner sep=0pt,
-      font=\usebeamerfont{catch sentence},text=DCPInk]
+    % Use the available width instead of balancing short lines with hyphenation.
+    \node[align=flush center,text width=\catchsentencewidth,inner sep=0pt,
+      font=\usebeamerfont{catch sentence},text=DCPInk,
+      execute at begin node={\hyphenpenalty=10000\relax}]
       at ([yshift=-#1]current page.north) {#2};
   \end{tikzpicture}%
 }
@@ -106,18 +179,41 @@
   \only<2->{\catchsentence[28mm]{#1}}%
 }
 % Arguments: step number, term heading, explanation (ordinary LaTeX text).
+% Step n appears on overlay n+1 and remains in the left-hand list afterward.
 \newcommand{\termexplanation}[3]{%
-  \begin{tikzpicture}[remember picture,overlay]
-    \node[circle,draw=DCPAccent!45,text=DCPAccent,inner sep=0pt,
-      minimum size=6mm,font=\usebeamerfont{normal text}]
-      at ([xshift=13mm,yshift=-48mm]current page.north west) {#1};
-    \node[anchor=north west,align=left,text width=34mm,inner sep=0pt,
-      font=\usebeamerfont{normal text}\bfseries,text=DCPAccent]
-      at ([xshift=22mm,yshift=-45mm]current page.north west) {#2};
-    \node[anchor=north west,align=left,text width=85mm,inner sep=0pt,
-      font=\usebeamerfont{normal text},text=DCPInk]
-      at ([xshift=65mm,yshift=-45mm]current page.north west) {#3};
-  \end{tikzpicture}%
+  \edef\DCPtermoverlay{\number\numexpr#1+1\relax}%
+  \only<\DCPtermoverlay->{%
+    \begin{tikzpicture}[remember picture,overlay]
+      \ifnum#1=1\relax
+        \coordinate (DCPoverviewanchor)
+          at ([xshift=22mm,yshift=-45mm]current page.north west);
+      \else
+        \edef\DCPpreviousterm{DCPoverviewterm-\number\numexpr#1-1\relax}%
+        \coordinate (DCPoverviewanchor)
+          at ([yshift=-5mm]\DCPpreviousterm.south west);
+      \fi
+      \node[anchor=north west,align=left,text width=34mm,inner sep=0pt,
+        font=\usebeamerfont{overview explanation},text=DCPInk,
+        execute at begin node={\hyphenpenalty=10000\relax}]
+        (DCPoverviewterm-#1) at (DCPoverviewanchor)
+        {\alt<\DCPtermoverlay>{\emphword{#2}}{#2}};
+      % Follow the centre of this heading, including any wrapped lines.
+      \node[circle,draw=DCPAccent!45,text=DCPAccent,inner sep=0pt,
+        minimum size=6mm,font=\usebeamerfont{overview explanation}]
+        at ([xshift=-9mm]DCPoverviewterm-#1.west) {#1};
+      \only<\DCPtermoverlay>{%
+        \node[anchor=north west,align=left,text width=85mm,inner sep=0pt,
+          font=\usebeamerfont{overview explanation},text=DCPInk]
+          at ([xshift=65mm,yshift=-45mm]current page.north west) {%
+            % Lists inherit the surrounding overview text at every nesting level.
+            \setbeamerfont*{itemize/enumerate body}{parent=overview explanation}%
+            \setbeamerfont*{itemize/enumerate subbody}{parent=overview explanation}%
+            \setbeamerfont*{itemize/enumerate subsubbody}{parent=overview explanation}%
+            #3%
+          };
+      }%
+    \end{tikzpicture}%
+  }%
 }
 
 \newcommand{\DCPPresenterName}{}

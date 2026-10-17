@@ -17,7 +17,7 @@
 \hypersetup{pdfauthor={Arthur Pesah},
   pdftitle={Polynomial-time simulation of non-Clifford quantum error correction}}
 
-\setlength{\catchsentencewidth}{.95\paperwidth}
+\setlength{\catchsentencewidth}{.7\paperwidth}
 
 \begin{document}
 
@@ -35,47 +35,90 @@
 \begin{frame}{Overview}
   \overviewstatement{\overviewSentence}
 
-  \only<2>{%
-    \termexplanation{1}{Most magic-state preparation protocols}{%
-      Gates outside the Clifford group, such as $T$ and CCZ.\par
-      These resources occur in many fault-tolerant protocols.%
-    }%
+  \termexplanation{1}{Most magic-state preparation protocols}{%
+      Circuits made of CNOT, $T$, Paulis, $Z$ measurements and \textit{compatible} $X$ measurements.
+      \newline \newline
+      \emphword{Examples}:
+      \begin{itemize}
+        \item Magic state distillation and cultivation based on applying a logical 3rd level non-Clifford gate to a code.
+        \item Code switching between 3D and 2D codes.
+      \end{itemize}
   }
-  \only<3>{%
-    \termexplanation{2}{Simulated}{%
-      The process of running the simulation on a classical computer.\par
-      This allows for the study of quantum systems without the need for actual quantum hardware.%
-    }%
+  \termexplanation{2}{Simulated}{%
+      Maintain state representation throughout the circuit.
+      \newline \newline
+      Can compute the following:
+      \begin{itemize}
+        \item Pauli expectation values
+        \item Measurement samples
+        \item Amplitudes
+        \item State equality
+      \end{itemize}
+
   }
-  \only<4>{%
-    \termexplanation{3}{Polynomial time}{%
-      For the supported circuit class, the simulation cost grows
-      polynomially with circuit size.\par
-      The claim is restricted to this class of circuits.%
-    }%
+  \termexplanation{3}{Polynomial time}{%
+      Polynomial-time complexity in the number of qubits and circuit depth
+
+      No exponential in the number of $T$ gates!
   }
+\end{frame}
+
+\outlineslide
+
+\sectionslide{The phase polynomial representation}
+
+\begin{frame}{Phase polynomial states}
+    \emphword{Unitary gate set}: the third-order CNOT-dihedral group
+    $G_3=\langle \text{CNOT}, T, X \rangle$
+
+    \pause
+    Commuting $T$ through the CNOTs: all diagonal non-Clifford gates of the third-level, i.e. $T$, $\text{CS}$, $\text{CCZ}$
+
+    \pause
+    \emphword{Initial state}: $\ket{0}^{\otimes n} \ket{+}^{\otimes m}$
+
+    \pause
+    \emphword{Question}: what happens when we apply $G_3$ gates to $\ket{0}^{\otimes n} \ket{+}^{\otimes m}$?
+    $$
+    U\ket{0}^{\otimes n} \ket{+}^{\otimes m} = \sum_{y\in \mathbb{F}_2^m} U \ket{x}
+    $$
+    with $\ket{x}= \ket{0}^{\otimes n} \ket{y}$
+
+    \pause
+    \emphword{New question}: what is $U \ket{x}$ for $U \in G_3$?
 \end{frame}
 
 \begin{frame}{Phase polynomial states}
-  % \vspace{10mm}
-    \usebeamerfont{normal text}%
-    \emphword{Unitary gate set}: the third-order CNOT-dihedral group
-    $$
-    G_3=\langle \text{CNOT}, T, X \rangle
-    $$
+  \emphword{$X$ operators}:
+  $X(a)\ket{x}=\ket{x+a}$
 
-    Commuting $T$ through the CNOTs: all diagonal non-Clifford gates of the third-level, i.e. $T$, $\text{CS}$, $\text{CCZ}$
+  \pause
+  \emphword{CNOT operators}:
+  $U_C\ket{x}=\ket{Ax}$
 
-    \emphword{Initial state}: $\ket{0}^{\otimes n} \ket{+}^{\otimes m}$
-
-    \emphword{Question}: what happens when we apply $G_3$ gates to $\ket{0}^{\otimes n} \ket{+}^{\otimes m}$
-
-  % \vspace{4mm}
-  % \begin{beamercolorbox}[sep=3mm,wd=\textwidth]{normal text}
-  %   \centering\usebeamerfont{normal text}
-  %   \emphword{Which non-Clifford QEC circuits\\
-  %     can we simulate efficiently?}
-  % \end{beamercolorbox}
+  \pause
+  \emphword{Diagonal non-Clifford operators}: for $\omega=e^{i\pi/4}$, we have
+  \newcommand{\diagonalGateActions}{%
+    \begin{aligned}
+      T_i\ket{x}&=\omega^{x_i}\ket{x} \\
+      CS_{i,j}\ket{x}&=\omega^{2 x_i x_j}\ket{x} \\
+      CCZ_{i,j,k}\ket{x}&=\omega^{4 x_i x_j x_k}\ket{x}
+    \end{aligned}%
+  }
+  \[
+    \diagonalGateActions
+    \uncover<4->{%
+      \left.\vphantom{\diagonalGateActions}\right\}
+      \quad\Rightarrow\quad U_D\ket{x}=\omega^{f(x)}\ket{x}%
+    }
+  \]
+  \uncover<4->{%
+  for a polynomial
+  \[
+    f(x)=\sum_{i} a_i x_i + \sum_{i<j} b_{ij} x_i x_j + \sum_{i<j<k} c_{ijk} x_i x_j x_k
+  \]
+  }
 \end{frame}
+
 
 \end{document}

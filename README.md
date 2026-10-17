@@ -74,6 +74,46 @@ is controlled by the four lengths inside `\DCPDisplaySpacing`.
 Presentation-specific overrides can go after `\usepackage{beamart}` in a talk's
 `main.tex`, so other talks continue to use the shared defaults.
 
+## Outline slide
+
+Use `\outlineslide` directly in the document, without a surrounding `frame`:
+
+```latex
+\outlineslide
+```
+
+It creates an `Outline` slide with pale section numbers, a thin teal
+connecting line, and left-aligned titles inside a centred block. The command takes
+no arguments: it automatically lists the titles and numbers of all
+`\sectionslide` calls in document order, including those later in the talk.
+Ordinary `\section` calls do not add outline entries.
+
+The outline uses the previous compilation's auxiliary file, so compile twice
+after adding, removing, or renaming sections (`latexmk` does this automatically).
+The `outline title` and `outline number` font settings are in the style.
+
+## Section opening slides
+
+Introduce a section with:
+
+```latex
+\sectionslide{Section title}
+```
+
+The macro registers the Beamer section and creates a divider with an automatic
+section number, a thin teal rule, and a large title on the shared
+background. It creates its own frame and omits the usual header and footer.
+Do not add a separate `\section` for the same section.
+
+An optional subtitle provides a short introduction:
+
+```latex
+\sectionslide[A short sentence introducing the topic.]{Section title}
+```
+
+Typography is controlled by the `section slide title`, `section slide number`,
+and `section slide subtitle` font settings in the style.
+
 ## Progressive overview
 
 Use one frame to show a catch sentence alone, then move it upward and explain
@@ -84,14 +124,18 @@ one highlighted term at a time:
   \overviewstatement{%
     Our method makes \catchterm<2>{large problems} \catchterm<3>{tractable}.%
   }
-  \only<2>{\termexplanation{1}{Large problems}{Explain the first term here.}}
-  \only<3>{\termexplanation{2}{Tractable}{Explain the second term here.}}
+  \termexplanation{1}{Large problems}{Explain the first term here.}
+  \termexplanation{2}{Tractable}{Explain the second term here.}
 \end{frame}
 ```
 
 The numbers in `<2>`, `<3>`, etc. select successive overlays, which appear as
-separate PDF pages sharing one frame number. Add another term and matching
-explanation block to extend the sequence.
+separate PDF pages sharing one frame number. Explanation 1 starts on overlay 2,
+explanation 2 on overlay 3, and so on. Numbered captions accumulate down the left
+column; only the current caption uses `\emphword`. The right column shows only
+the current explanation. Call `\termexplanation` directly, without a surrounding
+`\only`, so earlier captions remain visible. Keep the calls in numerical order.
+Add another term and matching explanation call to extend the sequence.
 
 The sentence starts 45mm below the page top and moves to 28mm on later overlays.
 For custom positioning, use `\catchsentence[28mm]{...}` directly. Set its width
