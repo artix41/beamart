@@ -3,6 +3,8 @@
 \documentclass[aspectratio=169,11pt,t]{beamer}
 \usepackage{beamart}
 \usepackage{quantikz}
+\usepackage{booktabs}
+\addbibresource{main.bib}
 
 \title{Polynomial-time simulation of\\
   non-Clifford quantum error correction}
@@ -462,6 +464,79 @@
 \end{frame}
 
 \sectionslide{Benchmarking our simulator}
+
+\begin{frame}{MERLIN: from theory to benchmarks}
+  \setlength{\parskip}{2bp}
+  \emphword{MERLIN}: our open-source simulator for non-Clifford QEC
+
+  \emphword{Input}: Stim-like circuit descriptions.
+
+  \pause
+  \emphword{Benchmark circuits}:
+  \begin{itemize}
+    \item Bravyi--Haah distillation: $3k+8\to k$ magic states, increasing $k$.
+    \item 15-to-1 distillation and distance-3 / distance-5 cultivation.
+    \item $\mathrm{CCZ}$ code switching with $[\![27,3,3]\!]$ and $[\![81,3,5]\!]$ codes\slidecite{li2026transversal}.
+  \end{itemize}
+
+  \pause
+  \emphword{Comparison}: Tsim\slidecite{haenel2026tsim},
+  Xtim\slidecite{surti2026efficient}, Clifft\slidecite{chase2026clifft}
+  and SymFT\slidecite{fang2026symft}.
+
+  \pause
+  \emphword{Metrics}: total runtime, sampling time per shot and peak memory.
+\end{frame}
+
+\begin{frame}{Bravyi--Haah: scaling with logical outputs}
+  \centering
+  \includegraphics[width=.78\linewidth]{assets/bh-total-time.pdf-legend.pdf}\par
+  \vspace{-2mm}
+  \includegraphics[width=.325\linewidth]{assets/bh-total-time.pdf}\hfill%
+  \includegraphics[width=.325\linewidth]{assets/bh-sample-time.pdf}\hfill%
+  \includegraphics[width=.325\linewidth]{assets/bh-memory.pdf}\par
+  \vspace{-1mm}
+  {\fontsize{8}{10}\selectfont
+    $1000$ attempted shots, $p=10^{-3}$.\par
+    Total includes pre-processing. Sampling time excludes pre-processing.\par}
+\end{frame}
+
+\begin{frame}{Distillation, cultivation and code switching}
+  \centering
+  % \setlength{\parskip}{0pt}
+  \setlength{\tabcolsep}{9pt}
+  \renewcommand{\arraystretch}{.95}
+  {\fontsize{8.5}{10}\selectfont
+  \emphword{Total runtime in ms, including pre-processing}
+  \begin{tabular}{lrrrrr}
+    \toprule
+    Circuit & Tsim & Xtim & Clifft & SymFT & \emphword{MERLIN} \\
+    \midrule
+    15-to-1  & 5029.95 & 85.86 & 99.56 & 57.67 & \textbf{12.52} \\
+    Cultiv-3 & OOM & 65.29 & 54.29 & 63.63 & \textbf{28.98} \\
+    Cultiv-5 & OOM & 253.51 & \textbf{67.93} & 577.20 & 202.01 \\
+    Switch-3 & OOM & 2817.53 & OOM & ERR & \textbf{573.69} \\
+    Switch-5 & OOM & OOM & OOM & ERR & \textbf{6959.13} \\
+    \bottomrule
+  \end{tabular}\par
+  \vspace{1.5mm}
+  \emphword{Time per shot in $\mu$s, excluding pre-processing}
+  \begin{tabular}{lrrrrr}
+    \toprule
+    Circuit & Tsim & Xtim & Clifft & SymFT & \emphword{MERLIN} \\
+    \midrule
+    15-to-1  & 3446.85 & 0.40 & 0.37 & \textbf{0.18} & 9.62 \\
+    Cultiv-3 & OOM & 0.39 & 0.51 & \textbf{0.34} & 28.34 \\
+    Cultiv-5 & OOM & 7.70 & 7.97 & \textbf{6.52} & 200.15 \\
+    Switch-3 & OOM & \textbf{2.65} & OOM & ERR & 549.93 \\
+    Switch-5 & OOM & OOM & OOM & ERR & \textbf{6704.94} \\
+    \bottomrule
+  \end{tabular}\par}
+  \vspace{1mm}
+  {\fontsize{7}{9}\selectfont
+  $1000$ attempted shots, $p=10^{-3}$. Cultivation excludes the escape stage.\newline
+  OOM = allocation above 20 GB. ERR = runtime error. Cultiv / Switch suffix = distance.\par}
+\end{frame}
 
 \begin{frame}{Future work}
   \begin{enumerate}

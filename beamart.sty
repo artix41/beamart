@@ -8,6 +8,8 @@
 \RequirePackage{tikz}
 \RequirePackage{fontawesome5}
 \RequirePackage{academicons}
+\RequirePackage[backend=biber,style=numeric,sorting=none,giveninits=true,
+  maxbibnames=999,maxcitenames=999]{biblatex}
 \usetikzlibrary{arrows.meta,calc,positioning}
 
 \apptocmd{\@listi}{\setlength{\topsep}{0pt}}{}{}
@@ -102,6 +104,56 @@
 \setbeamertemplate{footline}{%
   \hfill{\color{DCPMuted}\fontsize{7}{9}\selectfont
     \insertframenumber}\hspace{7mm}\vspace{4mm}%
+}
+
+% Bibliography-backed slide notes, stacked by Beamer above the footer.
+% Load a .bib with \addbibresource{main.bib}, then use \slidecite{key}.
+% A comma-separated list creates one note per entry, in the supplied order.
+\setbeamerfont{footnote}{size=\fontsize{5.5bp}{7bp}}
+\setbeamercolor{footnote}{fg=DCPMuted}
+\setbeamercolor{footnote mark}{fg=DCPAccent}
+\newlength{\slidecitationsep}
+\setlength{\slidecitationsep}{5bp}
+\renewcommand{\footnoterule}{%
+  \vfill
+  \kern3pt{\color{DCPAccent!45}\hrule width 9mm height .4pt}\kern3pt
+}
+\setbeamertemplate{footnote}{%
+  \parindent0pt\noindent\raggedright
+  \hangindent=1.5em\hangafter=1%
+  \makebox[1.5em][l]{\insertfootnotemark}\insertfootnotetext\par
+}
+\DeclareNameAlias{slideauthor}{given-family}
+\DeclareFieldFormat{slidetitle}{%
+  \iffieldundef{url}{\mkbibemph{#1}}%
+    {\href{\thefield{url}}{\mkbibemph{#1}}}%
+}
+\DeclareCiteCommand{\DCPslidereference}
+  {}%
+  {\printnames[slideauthor]{author}%
+   \setunit{\addperiod\space}%
+   \iffieldundef{shorttitle}
+     {\printfield[slidetitle]{title}}%
+     {\printfield[slidetitle]{shorttitle}}%
+   \setunit{\addspace}%
+   \printtext[parens]{\printdate}%
+   \addperiod}
+  {\par}
+  {}
+\newcommand{\DCPslideciteone}[1]{%
+  \begingroup
+  \setlength{\footnotesep}{\slidecitationsep}%
+  \footnote[frame]{\DCPslidereference{#1}}%
+  \endgroup
+}
+\newcommand<>{\slidecite}[1]{%
+  \begingroup
+  % Footnotes live outside the body hidden by \pause, so gate them explicitly.
+  \ifstrempty{#2}%
+    {\edef\DCPcitationoverlay{<\number\value{beamerpauses}->}}%
+    {\def\DCPcitationoverlay{#2}}%
+  \expandafter\only\DCPcitationoverlay{\forcsvlist{\DCPslideciteone}{#1}}%
+  \endgroup
 }
 
 % Public theme commands; metadata is deliberately separate from slide content.

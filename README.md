@@ -22,7 +22,8 @@ Load the style with `\usepackage{beamart}`, rather than `\usetheme{beamart}`.
 ## Build
 
 Requires latexmk and a TeX installation containing PDFLaTeX, Beamer, Latin
-Modern, physics, and TikZ, such as TeX Live or MacTeX. No Python is needed.
+Modern, physics, TikZ, biblatex, and Biber, such as TeX Live or MacTeX.
+No Python is needed. Latexmk runs Biber automatically when citations change.
 
 From the repository root, build any presentation with:
 
@@ -144,6 +145,46 @@ in the style or override it in a presentation:
 ```latex
 \setlength{\catchsentencewidth}{.95\paperwidth}
 ```
+
+## Slide citations
+
+Keep references in a presentation-local `main.bib` file and load it in the
+preamble, after `\usepackage{beamart}`:
+
+```latex
+\addbibresource{main.bib}
+```
+
+Cite next to the relevant text:
+
+```latex
+Tsim\slidecite{haenel2026tsim}
+```
+
+Each call adds a superscript number and a small, muted reference at the bottom
+of the slide, above the page number. References stack in citation order and
+reserve space below the slide content. Each includes all authors with given-name
+initials and full surnames, the full title, and the year. Titles link to the
+entry's `url` when provided. See `merlin/main.bib` for examples.
+
+For a long title, add an optional `shorttitle` field to the bibliography entry:
+
+```bibtex
+shorttitle = {{SymFT}: Universal Fault-Tolerant Quantum Circuit Simulation},
+```
+
+Slide citations use `shorttitle` when present and fall back to `title` otherwise.
+Keep the complete title in `title` for the bibliography.
+
+By default, citations appear on the current `\pause` step and remain visible on
+later overlays. Use `\slidecite{key1,key2}` to stack several references at once, or
+`\slidecite<2->{key}` to show a citation from overlay 2 onward. Beamer places
+these notes at the bottom of the frame even when cited inside columns.
+Adjust `\setbeamerfont{footnote}{size=\fontsize{5.5bp}{7bp}}` to change their size.
+The citation block is anchored above the slide footer. Adjust
+`\setlength{\slidecitationsep}{5bp}` to change the spacing between entries.
+Build with `make pdf` or latexmk so Biber and the required LaTeX reruns happen
+automatically.
 
 ## VS Code
 

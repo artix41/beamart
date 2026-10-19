@@ -1,0 +1,242 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global/global}
+    \entry{li2026transversal}{misc}{}{}
+      \name{author}{3}{}{%
+        {{hash=f92066ad9dcb7a0f7234be21b35c742d}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Christine},
+           giveni={C\bibinitperiod}}}%
+        {{hash=fbe61da8813855105d0c727fa93b4b4d}{%
+           family={Preskill},
+           familyi={P\bibinitperiod},
+           given={John},
+           giveni={J\bibinitperiod}}}%
+        {{hash=270a0b1489cbf37946f6b2f583b23d74}{%
+           family={Xu},
+           familyi={X\bibinitperiod},
+           given={Qian},
+           giveni={Q\bibinitperiod}}}%
+      }
+      \strng{namehash}{f0cec868ccac31d7b948fadb1e6c70e1}
+      \strng{fullhash}{f0cec868ccac31d7b948fadb1e6c70e1}
+      \strng{fullhashraw}{f0cec868ccac31d7b948fadb1e6c70e1}
+      \strng{bibnamehash}{f0cec868ccac31d7b948fadb1e6c70e1}
+      \strng{authorbibnamehash}{f0cec868ccac31d7b948fadb1e6c70e1}
+      \strng{authornamehash}{f0cec868ccac31d7b948fadb1e6c70e1}
+      \strng{authorfullhash}{f0cec868ccac31d7b948fadb1e6c70e1}
+      \strng{authorfullhashraw}{f0cec868ccac31d7b948fadb1e6c70e1}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprinttype}{arXiv}
+      \field{title}{Transversal Dimension Jump for Product {qLDPC} Codes}
+      \field{year}{2026}
+      \verb{doi}
+      \verb 10.48550/arXiv.2510.07269
+      \endverb
+      \verb{eprint}
+      \verb 2510.07269
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2510.07269
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2510.07269
+      \endverb
+    \endentry
+    \entry{haenel2026tsim}{misc}{}{}
+      \name{author}{3}{}{%
+        {{hash=282ca1b9b1b3a51adfa86b6635ba9e3c}{%
+           family={Haenel},
+           familyi={H\bibinitperiod},
+           given={Rafael},
+           giveni={R\bibinitperiod}}}%
+        {{hash=999e7ce43e655f744be6c0f8eac4983b}{%
+           family={Luo},
+           familyi={L\bibinitperiod},
+           given={Xiuzhe},
+           giveni={X\bibinitperiod}}}%
+        {{hash=996dee7706b2e1bbd3535f5f442606fc}{%
+           family={Zhao},
+           familyi={Z\bibinitperiod},
+           given={Chen},
+           giveni={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{0f973b574535be0c9f5c4d431c2dbe02}
+      \strng{fullhash}{0f973b574535be0c9f5c4d431c2dbe02}
+      \strng{fullhashraw}{0f973b574535be0c9f5c4d431c2dbe02}
+      \strng{bibnamehash}{0f973b574535be0c9f5c4d431c2dbe02}
+      \strng{authorbibnamehash}{0f973b574535be0c9f5c4d431c2dbe02}
+      \strng{authornamehash}{0f973b574535be0c9f5c4d431c2dbe02}
+      \strng{authorfullhash}{0f973b574535be0c9f5c4d431c2dbe02}
+      \strng{authorfullhashraw}{0f973b574535be0c9f5c4d431c2dbe02}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprinttype}{arXiv}
+      \field{title}{{Tsim}: Fast Universal Simulator for Quantum Error Correction}
+      \field{year}{2026}
+      \verb{eprint}
+      \verb 2604.01059
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2604.01059
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2604.01059
+      \endverb
+    \endentry
+    \entry{surti2026efficient}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=4fc0767c5d2c23d87224130d5c5659fd}{%
+           family={Surti},
+           familyi={S\bibinitperiod},
+           given={Samyak},
+           giveni={S\bibinitperiod}}}%
+        {{hash=9d6bcad28b904ff8a23b45ab654063ba}{%
+           family={Daguerre},
+           familyi={D\bibinitperiod},
+           given={Lucas},
+           giveni={L\bibinitperiod}}}%
+        {{hash=ec2c789fb2a61abbe9cca61ea617522a}{%
+           family={Kim},
+           familyi={K\bibinitperiod},
+           given={Isaac\bibnamedelima H.},
+           giveni={I\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
+      }
+      \strng{namehash}{64ec6e982b81ec34adab3bc0df74d19a}
+      \strng{fullhash}{64ec6e982b81ec34adab3bc0df74d19a}
+      \strng{fullhashraw}{64ec6e982b81ec34adab3bc0df74d19a}
+      \strng{bibnamehash}{64ec6e982b81ec34adab3bc0df74d19a}
+      \strng{authorbibnamehash}{64ec6e982b81ec34adab3bc0df74d19a}
+      \strng{authornamehash}{64ec6e982b81ec34adab3bc0df74d19a}
+      \strng{authorfullhash}{64ec6e982b81ec34adab3bc0df74d19a}
+      \strng{authorfullhashraw}{64ec6e982b81ec34adab3bc0df74d19a}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eid}{020329}
+      \field{journaltitle}{PRX Quantum}
+      \field{number}{2}
+      \field{title}{Efficient simulation of logical magic state preparation protocols}
+      \field{volume}{7}
+      \field{year}{2026}
+      \verb{doi}
+      \verb 10.1103/fby6-xjbm
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1103/fby6-xjbm
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1103/fby6-xjbm
+      \endverb
+    \endentry
+    \entry{chase2026clifft}{misc}{}{}
+      \name{author}{2}{}{%
+        {{hash=cc4911614543eb701ddf6357a29e7ea6}{%
+           family={Chase},
+           familyi={C\bibinitperiod},
+           given={Bradley\bibnamedelima A.},
+           giveni={B\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=0c747015f9929af3dd0c0b452bdc922a}{%
+           family={Labib},
+           familyi={L\bibinitperiod},
+           given={Farrokh},
+           giveni={F\bibinitperiod}}}%
+      }
+      \strng{namehash}{be3318eda97b41b27f3cf1186d8f5006}
+      \strng{fullhash}{be3318eda97b41b27f3cf1186d8f5006}
+      \strng{fullhashraw}{be3318eda97b41b27f3cf1186d8f5006}
+      \strng{bibnamehash}{be3318eda97b41b27f3cf1186d8f5006}
+      \strng{authorbibnamehash}{be3318eda97b41b27f3cf1186d8f5006}
+      \strng{authornamehash}{be3318eda97b41b27f3cf1186d8f5006}
+      \strng{authorfullhash}{be3318eda97b41b27f3cf1186d8f5006}
+      \strng{authorfullhashraw}{be3318eda97b41b27f3cf1186d8f5006}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprinttype}{arXiv}
+      \field{title}{{Clifft}: Fast Exact Simulation of Near-{Clifford} Quantum Circuits}
+      \field{year}{2026}
+      \verb{eprint}
+      \verb 2604.27058
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2604.27058
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2604.27058
+      \endverb
+    \endentry
+    \entry{fang2026symft}{misc}{}{}
+      \name{author}{3}{}{%
+        {{hash=b54c3c1a1f87012c32e9bd2e5da73222}{%
+           family={Fang},
+           familyi={F\bibinitperiod},
+           given={Wang},
+           giveni={W\bibinitperiod}}}%
+        {{hash=a36b630a3a13a9886706c8e3af44a3d8}{%
+           family={Lou},
+           familyi={L\bibinitperiod},
+           given={Huazhe},
+           giveni={H\bibinitperiod}}}%
+        {{hash=a2170faf22b38b253b32e48e34058cb0}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Riling},
+           giveni={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{fa5bdff89225673aa9275cc8a98b9e2c}
+      \strng{fullhash}{fa5bdff89225673aa9275cc8a98b9e2c}
+      \strng{fullhashraw}{fa5bdff89225673aa9275cc8a98b9e2c}
+      \strng{bibnamehash}{fa5bdff89225673aa9275cc8a98b9e2c}
+      \strng{authorbibnamehash}{fa5bdff89225673aa9275cc8a98b9e2c}
+      \strng{authornamehash}{fa5bdff89225673aa9275cc8a98b9e2c}
+      \strng{authorfullhash}{fa5bdff89225673aa9275cc8a98b9e2c}
+      \strng{authorfullhashraw}{fa5bdff89225673aa9275cc8a98b9e2c}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{eprinttype}{arXiv}
+      \field{shorttitle}{{SymFT}: Universal Fault-Tolerant Quantum Circuit Simulation}
+      \field{title}{{SymFT}: Universal Fault-Tolerant Quantum Circuit Simulation via Symbolic {Clifford}--{Pauli} Frames and Stabilizer Coordinates}
+      \field{year}{2026}
+      \verb{eprint}
+      \verb 2607.28600
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2607.28600
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2607.28600
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
