@@ -6,7 +6,24 @@
 \RequirePackage{lmodern}
 \RequirePackage{physics}
 \RequirePackage{tikz}
+\RequirePackage{fontawesome5}
+\RequirePackage{academicons}
 \usetikzlibrary{arrows.meta,calc,positioning}
+
+\apptocmd{\@listi}{\setlength{\topsep}{0pt}}{}{}
+\let\@listI\@listi
+
+% Lists also inherit the surrounding paragraph skip, even with zero topsep.
+% Set that contribution locally before the list initializes its own spacing.
+\newlength{\DCPListParagraphSkip}
+\setlength{\DCPListParagraphSkip}{3bp}
+\newcommand{\DCPBeforeList}{%
+  \ifnum\@listdepth=0\relax
+    \setlength{\parskip}{\DCPListParagraphSkip}%
+  \fi
+}
+\AddToHook{env/itemize/begin}{\DCPBeforeList}
+\AddToHook{env/enumerate/begin}{\DCPBeforeList}
 
 % Palette: change these values to restyle the entire deck.
 \definecolor{DCPBlue}{HTML}{EDF7FC}
@@ -25,9 +42,13 @@
 \setbeamerfont{title}{size=\fontsize{21}{26},series=\bfseries}
 % Screen units: 1 CSS px = 0.75 bp (1/96 inch).
 \setbeamerfont{frametitle}{size=\fontsize{16bp}{25bp},series=\bfseries}
-\setbeamerfont{normal text}{size=\fontsize{9bp}{22bp}}
-\setbeamerfont{itemize/enumerate body}{size=\fontsize{9bp}{22bp}}
-\AtBeginDocument{\usebeamerfont{normal text}\setlength{\parindent}{0pt}}
+\setbeamerfont{normal text}{size=\fontsize{9bp}{15bp}}
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{9bp}{16bp}}
+\AtBeginDocument{
+  \usebeamerfont{normal text}%
+  \setlength{\parindent}{0pt}%
+  \setlength{\parskip}{7bp}%
+}
 \setbeamerfont{alerted text}{series=\bfseries}
 \setbeamersize{text margin left=10mm,text margin right=10mm}
 \setbeamertemplate{navigation symbols}{}
@@ -228,6 +249,61 @@
 \newcommand{\DCPCoauthors}{}
 \newcommand{\coauthors}[1]{\renewcommand{\DCPCoauthors}{#1}}
 
+% Optional QR-image paths, followed by the paper ID or repository owner/name.
+% Configuring either resource selects the title layout with vertical side cards.
+\newcommand{\DCPArxivID}{}
+\newcommand{\DCPArxivQR}{}
+\newcommand{\DCPGithubOwner}{}
+\newcommand{\DCPGithubRepo}{}
+\newcommand{\DCPGithubQR}{}
+\newcommand{\arxivpaper}[2][]{%
+  \renewcommand{\DCPArxivID}{#2}%
+  \renewcommand{\DCPArxivQR}{#1}%
+  \setbeamertemplate{title page}[beamart resources]%
+}
+\newcommand{\githubrepo}[3][]{%
+  \renewcommand{\DCPGithubOwner}{#2}%
+  \renewcommand{\DCPGithubRepo}{#3}%
+  \renewcommand{\DCPGithubQR}{#1}%
+  \setbeamertemplate{title page}[beamart resources]%
+}
+\newcommand{\DCPArxivURL}{https://arxiv.org/abs/\DCPArxivID}
+\newcommand{\DCPGithubURL}{https://github.com/\DCPGithubOwner/\DCPGithubRepo}
+
+% Place the configured links along the bottom of a frame.
+\newcommand{\paperlinks}{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[anchor=south,inner sep=0pt,text=DCPAccent,
+      font=\fontsize{11}{14}\selectfont]
+      at ([yshift=5mm]current page.south) {%
+        \ifdefempty{\DCPArxivID}{}{%
+          \href{\DCPArxivURL}{\aiarXiv\enspace\DCPArxivID}}%
+        \ifdefempty{\DCPArxivID}{}{\ifdefempty{\DCPGithubRepo}{}{\qquad\qquad\qquad}}%
+        \ifdefempty{\DCPGithubRepo}{}{%
+          \href{\DCPGithubURL}{\faGithub\enspace\DCPGithubOwner/\DCPGithubRepo}}};
+  \end{tikzpicture}%
+}
+
+% Card centre x-coordinate, heading, link label, URL, and optional QR-image path.
+% Call inside a TikZ scope with millimetre coordinates from the page's top left.
+\newcommand{\resourcecard}[5]{%
+  \node[align=center,text width=30mm,inner sep=0pt,
+    text=DCPAccent,font=\fontsize{15}{18}\selectfont] at (#1,-41)
+    {\href{#4}{#2}};
+  \node[align=center,text width=30mm,inner sep=0pt,
+    text=DCPAccent,font=\fontsize{11}{13}\selectfont] at (#1,-51)
+    {\href{#4}{#3}};
+  \expandafter\ifstrempty\expandafter{#5}{%
+    \draw[DCPAccent!45,dashed,rounded corners=.7mm]
+      (#1-9,-58) rectangle (#1+9,-76);
+    \node[align=center,text=DCPMuted,font=\fontsize{8}{10}\selectfont]
+      at (#1,-67) {QR code\\placeholder};
+  }{%
+    \node[inner sep=0pt] at (#1,-67)
+      {\href{#4}{\includegraphics[width=18mm,height=18mm]{#5}}};
+  }%
+}
+
 % #1: optional TikZ image-node settings, e.g. yshift=-3mm for a tall photo.
 % #2: local photo; #3: name; #4: affiliation. Images are never stretched.
 % The image is enlarged inside the circular clip for a closer portrait crop.
@@ -263,6 +339,34 @@
       text=DCPMuted] at ([yshift=-54mm]current page.north) {Joint work with};
     \node[align=center,inner sep=0pt] at ([yshift=-70mm]current page.north)
       {\DCPCoauthors};
+    \node[align=center,inner sep=0pt,font=\fontsize{8}{10}\selectfont,
+      text=DCPMuted] at ([yshift=4mm]current page.south)
+      {\DCPVenue\ifx\DCPVenue\empty\else\quad\fi\insertdate};
+  \end{tikzpicture}%
+}
+
+% Centre the authors between tall GitHub and arXiv resource cards.
+\defbeamertemplate{title page}{beamart resources}{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \begin{scope}[shift={(current page.north west)},x=1mm,y=1mm]
+      \node[align=center,text width=.92\paperwidth,inner sep=0pt]
+        at (80,-16)
+        {{\usebeamerfont{title}\color{DCPAccent}\inserttitle\par}};
+      \node[align=center,text width=76mm,inner sep=0pt] at (80,-36)
+        {{\fontsize{15}{19}\selectfont\bfseries\DCPPresenterName\par}
+         \vspace{1mm}
+         {\fontsize{11}{14}\selectfont\color{DCPMuted}\DCPPresenterAffiliation\par}};
+      \node[text=DCPMuted,font=\fontsize{9}{11}\selectfont]
+        at (80,-49) {Joint work with};
+      \node[inner sep=0pt] at (80,-68)
+        {\begingroup\tikzset{x=1cm,y=1cm}\scalebox{.8}{\DCPCoauthors}\endgroup};
+      \ifdefempty{\DCPGithubRepo}{}{%
+        \resourcecard{22}{\faGithub\ GitHub}{\DCPGithubOwner/\\\DCPGithubRepo}
+          {\DCPGithubURL}{\DCPGithubQR}}
+      \ifdefempty{\DCPArxivID}{}{%
+        \resourcecard{138}{\aiarXiv\ arXiv}{\DCPArxivID}
+          {\DCPArxivURL}{\DCPArxivQR}}
+    \end{scope}
     \node[align=center,inner sep=0pt,font=\fontsize{8}{10}\selectfont,
       text=DCPMuted] at ([yshift=4mm]current page.south)
       {\DCPVenue\ifx\DCPVenue\empty\else\quad\fi\insertdate};

@@ -2,6 +2,7 @@
 % !LW recipe = latexmk (presentation)
 \documentclass[aspectratio=169,11pt,t]{beamer}
 \usepackage{beamart}
+\usepackage{quantikz}
 
 \title{Polynomial-time simulation of\\
   non-Clifford quantum error correction}
@@ -18,6 +19,9 @@
   pdftitle={Polynomial-time simulation of non-Clifford quantum error correction}}
 
 \setlength{\catchsentencewidth}{.7\paperwidth}
+
+\arxivpaper[assets/qr-arxiv-transparent.png]{2610.06811}
+\githubrepo[assets/qr-github-transparent.png]{mark-koch}{merlin-sim}
 
 \begin{document}
 
@@ -46,12 +50,13 @@
   }
   \termexplanation{2}{Simulated}{%
       Maintain state representation throughout the circuit.
+      \newline
+      Two representations: Schrödinger (phase polynomials) and Heisenberg (generalized stabilizer group).
       \newline \newline
       Can compute the following:
       \begin{itemize}
-        \item Pauli expectation values
+        \item Pauli expectation values and amplitudes
         \item Measurement samples
-        \item Amplitudes
         \item State equality
       \end{itemize}
 
@@ -90,7 +95,7 @@
 
 \begin{frame}{Phase polynomial states}
   \emphword{$X$ operators}:
-  $X(a)\ket{x}=\ket{x+a}$
+  $X(b)\ket{x}=\ket{x+b}$
 
   \pause
   \emphword{CNOT operators}:
@@ -113,12 +118,361 @@
     }
   \]
   \uncover<4->{%
-  for a polynomial
+  for a so-called \emphword{third-order phase polynomial}:
   \[
-    f(x)=\sum_{i} a_i x_i + \sum_{i<j} b_{ij} x_i x_j + \sum_{i<j<k} c_{ijk} x_i x_j x_k
+    f(x)=\sum_{i} a_i x_i + 2 \sum_{i<j} b_{ij} x_i x_j + 4 \sum_{i<j<k} c_{ijk} x_i x_j x_k
   \]
   }
 \end{frame}
 
+\begin{frame}{Phase polynomial states}
+  \emphword{Therefore}, for $U\in G_3$ we have
+  \[
+    U \ket{x} = U_D X(b) U_C \ket{x} = \omega^{f(Ax+b)} \ket{Ax+b}
+  \]
+
+  \pause
+  \emphword{Our state}: $U \in G_3$ applied to $\ket{0}^{\otimes n} \ket{+}^{\otimes m}$ gives
+  \begin{align*}
+    U\ket{0}^{\otimes n} \ket{+}^{\otimes m} &\propto \sum_{y\in \mathbb{F}_2^m} U \ket{0}^{\otimes n} \ket{y} \\
+    & \uncover<3->{\propto \sum_{y\in \mathbb{F}_2^m} \omega^{f(A\tilde{y}+b)} \ket{A\tilde{y}+b} \quad \text{ with } \tilde{y} = (0, y)} \\
+    & \uncover<4->{\propto \sum_{x \in S} \omega^{q(x)} \ket{x}}
+  \end{align*}
+  \uncover<4->{with $S$ an affine subspace of $\mathbb{F}_2^{n+m}$ and $q$ a third-order phase polynomial.}
+\end{frame}
+
+\begin{frame}{Phase polynomial states}
+  \emphword{Definition (3PP state)}: a third-order phase polynomial (3PP) state is a state of the form
+  \[
+    \ket{\psi} \propto \sum_{x\in S} \omega^{q(x)} \ket{x}
+  \]
+  with $S$ an affine subspace and $q$ a third-order phase polynomial.
+
+  \pause
+  \emphword{Property}: 3PP states are efficient to store
+  \begin{itemize}
+    \item $O(N^2)$ parameters for $S$ (generator matrix and offset)
+    \item $O(N^3)$ parameters for $q$ (coefficients of the polynomial)
+  \end{itemize}
+
+  \pause
+  \emphword{Claim}: also efficient to update under CNOT-dihedral gates
+
+  \pause
+  \emphword{Question}: but what about measurements?
+\end{frame}
+
+\sectionslide{Compatible measurements}
+
+\begin{frame}{Compatible measurements: $Z$ measurements}
+  \emphword{Definition (compatible measurement)}: the measurement of 3PP state $\ket{\psi}$ is \emphword{compatible} with $\ket{\psi}$
+  if the post-measurement state is still a 3PP state (for every measurement outcome).
+
+  \pause
+  \emphword{Theorem}: $Z$ measurements are always compatible.
+
+  \pause
+  \emphword{Proof}: we apply the projector $\Pi^\mu=\frac{1}{2}(I+(-1)^\mu Z(v))$ to a 3PP state $\ket{\psi}$:
+  \begin{align*}
+    \Pi_\mu \ket{\psi}
+    \propto
+      \sum_{x\in S} \omega^{q(x)}\ket{x} + \sum_{x\in S} \omega^{q(x)}(-1)^\mu Z(v) \ket{x}
+  \end{align*}
+  \pause
+  Using $Z(v)\ket{x}=(-1)^{v\cdot x}\ket{x}$, we get:
+  \begin{align*}
+    \Pi_\mu \ket{\psi} \propto
+      \sum_{x\in S} \omega^{q(x)} (1 + (-1)^{\mu + v\cdot x}) \ket{x}
+  \end{align*}
+  \pause
+  $\Rightarrow$ Doesn't change the phase polynomial, but reduces the support to $S\cap\{x:v\cdot x=\mu\}$.
+
+  \pause
+  $\Rightarrow$ Still a 3PP state!
+\end{frame}
+
+\begin{frame}{Compatible measurements: $X$ measurements}
+  \emphword{Observation 1}: not every $X$ measurement can be compatible.
+
+  Otherwise, we would get universality through a measurement-based Hadamard gadget:
+
+  {\centering
+  \begin{quantikz}[column sep=3mm,row sep=3mm]
+    \lstick{$\ket{\psi}$} & \ctrl{1} & \meter{X} & \cwbend{1} \\
+    \lstick{$\ket{+}$} & \control{} & \qw & \gate{X} & \rstick{$H\ket{\psi}$}\qw
+  \end{quantikz}\par}\vspace{-2mm}
+
+  \pause
+  \emphword{Observation 2}: compatibility depends on the state.
+
+  \pause
+  For the Hadamard gadget, with $\ket{T}=T\ket{+}$:
+  \[
+    H\ket{0}=\ket{+}\quad\text{(compatible)},\qquad
+    H\ket{T}\propto
+    \cos\tfrac{\pi}{8}\ket{0}-i\sin\tfrac{\pi}{8}\ket{1}
+    \quad\text{(incompatible)}.
+  \]
+  The latter has unequal amplitude magnitudes, so it is not a 3PP state.
+
+  \pause
+  \emphword{Question}: which $X$ measurements are compatible with a state
+  $\ket{\psi}$ specified by $(S,q(x))$?
+\end{frame}
+
+\begin{frame}{Compatible $X$ measurements: support and phase}
+  \emphword{Claim}: compatibility of measuring $X(v)$ is determined by whether
+  $S=S+v$ and, if so, by the form of
+  $\Delta_v q(x)=q(x+v)-q(x)\pmod 8$ on $S$.
+
+  \pause
+  \emphword{Indeed:} applying $\Pi_\mu=\frac12(I+(-1)^\mu X(v))$ gives
+  \[
+    \Pi_\mu\ket{\psi}\propto
+      \sum_{x\in S}\omega^{q(x)}\ket{x}
+      +(-1)^\mu\sum_{x\in S}\omega^{q(x)}\ket{x+v}.
+  \]
+
+  \pause
+  \emphword{If $S\ne S+v$}: the two copies are disjoint, so there is no interference.
+  Their union is affine and the relative sign adds an affine phase.
+  $\Rightarrow$ Always compatible!
+
+  \pause
+  \emphword{If $S=S+v$}: relabeling the second sum gives
+  \begin{align*}
+    \Pi_\mu\ket{\psi}
+    &\propto
+    \sum_{x\in S}\omega^{q(x)} + (-1)^\mu \omega^{q(x+v)} \ket{x} \\
+    &\propto
+    \sum_{x\in S}\omega^{q(x)}\bigl(1+ \omega^{\Delta_v q(x) + 4\mu}\bigr)\ket{x}
+  \end{align*}
+\end{frame}
+
+
+\begin{frame}{Classification of compatible $X$ measurements}
+  \setlength{\parskip}{4bp}
+  \emphword{Theorem}: measuring $X(v)$ on a 3PP state $(S,q)$ is compatible iff
+  \begin{enumerate}
+    \item $S\ne S+v$, or
+    \item $S=S+v$ and one of the following holds on $S$ (modulo $8$):
+  \end{enumerate}
+  \[
+    \begin{aligned}
+      \text{\emphword{(2a)}}\quad \Delta_v q(x)&=4f(x),
+        &&f\text{ affine},\\
+      \text{\emphword{(2b)}}\quad \Delta_v q(x)&=2+4g(x),
+        &&2g\text{ a third-order phase polynomial},\\
+      \text{\emphword{(2c)}}\quad \Delta_v q(x)&=(-1)^{h(x)}d,
+        &&h\text{ affine},\quad d\in\{1,3,5,7\}.
+    \end{aligned}
+  \]
+
+  \pause
+  \emphword{Example 1 (deterministic measurement)}:
+  $X(v)\ket{\psi}=(-1)^\mu\ket{\psi}$ $\;\Rightarrow\;$ case (2a).
+
+  \pause
+  \emphword{Proof}: $X(v)$ shifts the support, so $S+v=S$.
+  Matching amplitudes at $x\in S$ gives
+  \[
+    \omega^{q(x+v)}=(-1)^\mu\omega^{q(x)}
+    \;\Rightarrow\; q(x+v)= q(x)+4\mu\pmod 8 \;\Rightarrow\; \Delta_v q(x)=4\mu\pmod 8.
+  \]
+  Thus $\Delta_v q=4f$ with $f(x)=\mu$ constant, hence affine: case (2a).
+\end{frame}
+
+\begin{frame}{Classification of compatible $X$ measurements}
+  \setlength{\parskip}{4bp}
+  \emphword{Theorem}: measuring $X(v)$ on a 3PP state $(S,q)$ is compatible iff
+  \begin{enumerate}
+    \item $S\ne S+v$, or
+    \item $S=S+v$ and one of the following holds on $S$ (modulo $8$):
+  \end{enumerate}
+  \[
+    \begin{aligned}
+      \text{\emphword{(2a)}}\quad \Delta_v q(x)&=4f(x),
+        &&f\text{ affine},\\
+      \text{\emphword{(2b)}}\quad \Delta_v q(x)&=2+4g(x),
+        &&2g\text{ a third-order phase polynomial},\\
+      \text{\emphword{(2c)}}\quad \Delta_v q(x)&=(-1)^{h(x)}d,
+        &&h\text{ affine},\quad d\in\{1,3,5,7\}.
+    \end{aligned}
+  \]
+
+  \emphword{Example 2 (anticommuting $Z$ stabilizer)}:
+  if $Z(w)\ket{\psi}=\ket{\psi}$ and $Z(w)$ anticommutes with $X(v)$,
+  measuring $X(v)$ is compatible: case (1).
+
+  \pause
+  \emphword{Proof}: for $x \in S$, $Z(w)\ket{\psi}=\ket{\psi}$ gives $w\cdot x=0$. Anticommutation gives
+  $w\cdot v=1$. Thus:
+  \[
+    w\cdot(x+v)=0+1\ne 0 \pmod 2
+    \;\Rightarrow\; x+v \notin S \;\Rightarrow\; S \neq S+v.
+  \]
+\end{frame}
+
+\begin{frame}{Application to quantum error correction}
+  \emphword{Problem}: we need to look at the compatibility of QEC measurements with \emphword{noisy} states.
+
+  \pause
+  \emphword{Question}: what noise model should we consider?
+
+  \pause
+  \emphword{Observation 1}: in a CNOT-dihedral circuit (i.e. $X$,$T$,CNOT), Pauli errors propagate into \emphword{diagonal Clifford and Pauli (DCP)} gates. Example:
+  \begin{itemize}
+    \item $TXT^\dagger = e^{-i\pi/4} S X$
+    \item $(\text{CCZ}) X (\text{CCZ})^\dag = X \; \text{CZ}$
+  \end{itemize}
+
+  \pause
+  \emphword{Observation 2}: CNOT-dihedral circuits preserve DCP errors. Indeed:
+  \begin{enumerate}
+    \item Pauli part of the DCP error: propagate into a new DCP operator
+    \item Diagonal part of the DCP error: turn into another diagonal operator (due to CNOTs)
+  \end{enumerate}
+
+  \pause
+  \emphword{Noise model}: DCP errors at every circuit location
+\end{frame}
+
+
+
+\begin{frame}{Application to quantum error correction}
+  \emphword{Theorem (measurement compatibility under noise)}: assume
+  \begin{enumerate}
+    \item Circuit made of CNOT-dihedral gates and compatible measurements
+    \item Every ideal $X$ measurement is either deterministic, or anticommutes with a current $Z$ stabilizer
+  \end{enumerate}
+  Then, all measurements remain compatible under arbitrary inserted DCP faults.
+
+  \pause
+  \emphword{Examples}:
+  \begin{itemize}
+    \item \emphword{Distillation and non-Clifford computation}: logical
+      CNOT-dihedral gates on CSS codes, followed by ideally deterministic checks.
+    \item \emphword{DCP checks in cultivation}: controlled-DCP gates give deterministic ancilla $X$ readouts.
+    \item \emphword{CSS gauge fixing and code switching}: new $X$ checks are
+      fixed or anticommute with a current $Z$ constraint.
+  \end{itemize}
+\end{frame}
+
+\sectionslide{DCP stabilizer formalism}
+
+\begin{frame}{DCP stabilizer formalism}
+  \emphword{Question}: can we come up with a stabilizer picture for 3PP states?
+
+  \emphword{Observation}: if we start with a state stabilized by a Pauli operator $S$, and apply a gate $U \in G_3$, then the new state is stabilized by $S'=U S U^\dag$, \emphword{which is a DCP operator}.
+  \newline
+  $\Rightarrow$ Let's look at states stabilized by a group of DCP operators. We call these \emphword{DCP states}.
+
+  \emphword{Example}: $\ket{00}$ is stabilized by
+  $\mathcal{S}_{\text{DCP}} = \langle S_1, S_2, \text{CZ}_{12} \rangle$. Interestingly:
+  \begin{enumerate}
+    \item It has $m=3$ independent generators, but $n=2$ qubits. Contrasts with Pauli case, where $n=m$.
+    \item It is also uniquely stabilized by some dim-$2$ subgroups of $\mathcal{S}_{\text{DCP}}$: $\langle Z_1, Z_2 \rangle$, $\langle Z_1, S_2 \rangle$,$\langle S_1, Z_2 \rangle$, etc.
+  \end{enumerate}
+
+  \emphword{Questions}:
+  \begin{enumerate}
+    \item Is every DCP state uniquely stabilized by an $n$-dimensional DCP subgroup?
+    \item What is the link between DCP states and 3PP states?
+    \item Can we build a \textit{DCP tableau simulator}, with update rules for compatible measurements?
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{From phase polynomials to stabilizers}
+  \emphword{Theorem}: DCP states are exactly the 3PP states.
+
+  \pause
+  \emphword{First direction}: every 3PP state is a DCP state.
+  By Proposition 1, it can be prepared as
+  \[
+    \ket{\psi}=U\ket{\phi},\qquad
+    \ket{\phi}=\ket{0}^{\otimes(n-r)}\ket{+}^{\otimes r},\quad U\in G_3.
+  \]
+
+  \pause
+  The product state $\ket{\phi}$ is uniquely specified by $n$ Pauli stabilizers
+  $P_1,\ldots,P_n$. Conjugate them through the preparation circuit:
+  \[
+    g_i=UP_iU^\dagger,
+    \qquad g_i\ket{\psi}=UP_i\ket{\phi}=\ket{\psi}.
+  \]
+
+  \pause
+  \emphword{Why DCP?} Conjugating Paulis by CNOT-dihedral gates gives DCP operators.
+  Unitary conjugation also preserves the uniquely fixed state.
+
+  \pause
+  \emphword{Answer to the first question}: $n$ independent commuting DCP generators suffice.
+\end{frame}
+
+\begin{frame}{From stabilizers to support and phases}
+  Let $G$ uniquely fix $\ket{\psi}$. Write its elements as $DX(v)$, with $D$ diagonal Clifford.
+
+  \pause
+  \emphword{Support}: collect all available shifts,
+  \[
+    X(G)=\{v:DX(v)\in G\text{ for some diagonal }D\}.
+  \]
+  A nonzero amplitude at $x_0$ forces nonzero amplitudes at every $x_0+v$.
+  Uniqueness forces a single such affine support: $S=x_0+X(G)$.
+  The diagonal stabilizers constrain which offset $x_0$ is allowed.
+
+  \pause
+  \emphword{Phases}: choose stabilizers $g_i=D_iX(v_i)$ for a basis of $X(G)$.
+  If $D_i\ket{x}=\omega^{d_i(x)}\ket{x}$, their stabilizer equations fix
+  \[
+    q(x+v_i)-q(x)=-d_i(x)\pmod 8\qquad(x\in S).
+  \]
+
+  \pause
+  Combine the quadratic Clifford phases along a path from $x_0$.
+  Each binary choice of shift adds one factor, giving a third-order phase polynomial.
+  $\Rightarrow$ A 3PP state!
+\end{frame}
+
+\begin{frame}{Updating the DCP stabilizers}
+  \emphword{Unitary gates}: conjugate each generator. For $U\in G_3$, the result is still DCP:
+  \[
+    g_i\longmapsto Ug_iU^\dagger.
+  \]
+
+  \pause
+  \emphword{$Z$ measurements}: every DCP operator commutes or anticommutes with $Z(w)$.
+  Keep the commuting stabilizers and add the measured $\pm Z(w)$.
+  A deterministic measurement leaves the state unchanged, as in the Pauli case.
+
+  \pause
+  \emphword{$X$ measurements}: first check whether $v\in X(G)$.
+  If not, $S\ne S+v$ and the measurement is always compatible.
+  Otherwise choose $g=DX(v)\in G$, with $D\ket{x}=\omega^{d(x)}\ket{x}$.
+  Since $g\ket{\psi}=\ket{\psi}$,
+  \[
+    X(v)\ket{\psi}=D^{-1}\ket{\psi}
+    \quad\Rightarrow\quad
+    \Delta_v q(x)=-d(x)\pmod 8\quad(x\in S).
+  \]
+  Read the phase difference directly from $G$, then use the classification theorem.
+
+  \pause
+  \emphword{Result}: compatibility tests and tableau updates take polynomial time.
+\end{frame}
+
+\sectionslide{Benchmarking our simulator}
+
+\begin{frame}{Future work}
+  \begin{enumerate}
+    \item There are still a few circuits that evade our simulation method (e.g. $H$-based cultivation, some more complicated distillation protocols, etc.). Can we extend our method to cover these cases?
+    \item Can we formalize a notion of \emphword{"DCP detector error model"} for non-Clifford circuits?
+    \item Can we build a theory of \emphword{"DCP codes"}, generalizing XP codes?
+    \item Can we construct an interesting \emphword{resource theory} based on 3PP states? A "DCP polytope" generalizing the stabilizer polytope?
+    \item Is there any application to \emphword{learning theory}?
+    \item What concrete non-Clifford protocols should we start comparing and benchmarking using Merlin?
+  \end{enumerate}
+  \paperlinks
+\end{frame}
 
 \end{document}
