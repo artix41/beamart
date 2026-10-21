@@ -64,9 +64,11 @@
 
   }
   \termexplanation{3}{Polynomial time}{%
-      Polynomial-time complexity in the number of qubits and circuit depth
+      Polynomial-time complexity in the number of qubits and circuit depth.
 
-      No exponential in the number of $T$ gates!
+      No exponential dependence in the number of $T$ gates!
+
+      No exponential in the number of logical qubits, in contrast to previous work\slidecite{surti2026efficient}.
   }
 \end{frame}
 
@@ -74,28 +76,28 @@
 
 \sectionslide{The phase polynomial representation}
 
-\begin{frame}{Phase polynomial states}
+\begin{frame}{Phase-polynomial states}
     \emphword{Unitary gate set}: the third-order CNOT-dihedral group
-    $G_3=\langle \text{CNOT}, T, X \rangle$
+    $G_3=\langle \text{CNOT}, T, X \rangle$\slidecite{cross2016scalable}
 
     \pause
     Commuting $T$ through the CNOTs: all diagonal non-Clifford gates of the third-level, i.e. $T$, $\text{CS}$, $\text{CCZ}$
 
     \pause
-    \emphword{Initial state}: $\ket{0}^{\otimes n} \ket{+}^{\otimes m}$
+    \emphword{Initial state}: $\ket{0}^{\otimes \ell} \ket{+}^{\otimes m}$
 
     \pause
-    \emphword{Question}: what happens when we apply $G_3$ gates to $\ket{0}^{\otimes n} \ket{+}^{\otimes m}$?
+    \emphword{Question}: what happens when we apply $G_3$ gates to $\ket{0}^{\otimes \ell} \ket{+}^{\otimes m}$?
     $$
-    U\ket{0}^{\otimes n} \ket{+}^{\otimes m} = \sum_{y\in \mathbb{F}_2^m} U \ket{x}
+    U\ket{0}^{\otimes \ell} \ket{+}^{\otimes m} \propto \sum_{y\in \mathbb{F}_2^m} U \ket{x}
     $$
-    with $\ket{x}= \ket{0}^{\otimes n} \ket{y}$
+    with $\ket{x}= \ket{0}^{\otimes \ell} \ket{y}$
 
     \pause
     \emphword{New question}: what is $U \ket{x}$ for $U \in G_3$?
 \end{frame}
 
-\begin{frame}{Phase polynomial states}
+\begin{frame}{Phase-polynomial states}
   \emphword{$X$ operators}:
   $X(b)\ket{x}=\ket{x+b}$
 
@@ -127,23 +129,23 @@
   }
 \end{frame}
 
-\begin{frame}{Phase polynomial states}
+\begin{frame}{Phase-polynomial states}
   \emphword{Therefore}, for $U\in G_3$ we have
   \[
     U \ket{x} = U_D X(b) U_C \ket{x} = \omega^{f(Ax+b)} \ket{Ax+b}
   \]
 
   \pause
-  \emphword{Our state}: $U \in G_3$ applied to $\ket{0}^{\otimes n} \ket{+}^{\otimes m}$ gives
+  \emphword{Our state}: $U \in G_3$ applied to $\ket{0}^{\otimes \ell} \ket{+}^{\otimes m}$ gives
   \begin{align*}
-    U\ket{0}^{\otimes n} \ket{+}^{\otimes m} &\propto \sum_{y\in \mathbb{F}_2^m} U \ket{0}^{\otimes n} \ket{y} \\
+    U\ket{0}^{\otimes \ell} \ket{+}^{\otimes m} &\propto \sum_{y\in \mathbb{F}_2^m} U \ket{0}^{\otimes \ell} \ket{y} \\
     & \uncover<3->{\propto \sum_{y\in \mathbb{F}_2^m} \omega^{f(A\tilde{y}+b)} \ket{A\tilde{y}+b} \quad \text{ with } \tilde{y} = (0, y)} \\
     & \uncover<4->{\propto \sum_{x \in S} \omega^{q(x)} \ket{x}}
   \end{align*}
   \uncover<4->{with $S$ an affine subspace of $\mathbb{F}_2^{n+m}$ and $q$ a third-order phase polynomial.}
 \end{frame}
 
-\begin{frame}{Phase polynomial states}
+\begin{frame}{Phase-polynomial states}
   \emphword{Definition (3PP state)}: a third-order phase polynomial (3PP) state is a state of the form
   \[
     \ket{\psi} \propto \sum_{x\in S} \omega^{q(x)} \ket{x}
@@ -245,7 +247,7 @@
   \begin{align*}
     \Pi_\mu\ket{\psi}
     &\propto
-    \sum_{x\in S}\omega^{q(x)} + (-1)^\mu \omega^{q(x+v)} \ket{x} \\
+    \sum_{x\in S}\bigl(\omega^{q(x)} + (-1)^\mu \omega^{q(x+v)}\bigr) \ket{x} \\
     &\propto
     \sum_{x\in S}\omega^{q(x)}\bigl(1+ \omega^{\Delta_v q(x) + 4\mu}\bigr)\ket{x}
   \end{align*}
@@ -363,104 +365,80 @@
 \sectionslide{DCP stabilizer formalism}
 
 \begin{frame}{DCP stabilizer formalism}
-  \emphword{Question}: can we come up with a stabilizer picture for 3PP states?
+  \emphword{Question}: can we come up with a stabilizer picture for
 
+  \pause
   \emphword{Observation}: if we start with a state stabilized by a Pauli operator $S$, and apply a gate $U \in G_3$, then the new state is stabilized by $S'=U S U^\dag$, \emphword{which is a DCP operator}.
   \newline
-  $\Rightarrow$ Let's look at states stabilized by a group of DCP operators. We call these \emphword{DCP states}.
+  $\Rightarrow$ Let's look at states uniquely stabilized by a group of DCP operators. We call these \emphword{DCP states}.
 
+  \pause
   \emphword{Example}: $\ket{00}$ is stabilized by
   $\mathcal{S}_{\text{DCP}} = \langle S_1, S_2, \text{CZ}_{12} \rangle$. Interestingly:
   \begin{enumerate}
     \item It has $m=3$ independent generators, but $n=2$ qubits. Contrasts with Pauli case, where $n=m$.
-    \item It is also uniquely stabilized by some dim-$2$ subgroups of $\mathcal{S}_{\text{DCP}}$: $\langle Z_1, Z_2 \rangle$, $\langle Z_1, S_2 \rangle$,$\langle S_1, Z_2 \rangle$, etc.
+    \item However, also uniquely stabilized by some dim-$2$ subgroups of $\mathcal{S}_{\text{DCP}}$: $\langle Z_1, Z_2 \rangle$, $\langle Z_1, S_2 \rangle$, etc.
   \end{enumerate}
 
   \emphword{Questions}:
   \begin{enumerate}
-    \item Is every DCP state uniquely stabilized by an $n$-dimensional DCP subgroup?
     \item What is the link between DCP states and 3PP states?
+    \item Is every DCP state uniquely stabilized by an $n$-dimensional DCP subgroup?
     \item Can we build a \textit{DCP tableau simulator}, with update rules for compatible measurements?
   \end{enumerate}
 \end{frame}
 
-\begin{frame}{From phase polynomials to stabilizers}
-  \emphword{Theorem}: DCP states are exactly the 3PP states.
+\begin{frame}{DCP stabilizer formalism}
+  \emphword{Question 1}: what is the link between DCP states and 3PP states? \pause \emphword{They're the same!}
 
   \pause
-  \emphword{First direction}: every 3PP state is a DCP state.
-  By Proposition 1, it can be prepared as
-  \[
-    \ket{\psi}=U\ket{\phi},\qquad
-    \ket{\phi}=\ket{0}^{\otimes(n-r)}\ket{+}^{\otimes r},\quad U\in G_3.
-  \]
+  \emphword{3PP states are DCP states}:
+  \begin{enumerate}
+    \item Every 3PP state can be written as $\ket{\psi}=U\bigl(\ket{0}^{\otimes \ell}\ket{+}^{\otimes m}\bigr)$ for some $U\in G_3$.
+    \item $\ket{0}^{\otimes \ell}\ket{+}^{\otimes m}$ is uniquely stabilized by $\langle Z_1,\ldots,Z_\ell,X_{\ell+1},\ldots,X_{\ell+m} \rangle$.
+    \item $\ket{\psi}$ is stabilized by the DCP operators $\langle U Z_1 U^\dag,\ldots,U Z_\ell U^\dag,U X_{\ell+1} U^\dag,\ldots,U X_{\ell+m} U^\dag \rangle$, and one can prove it's unique.
+  \end{enumerate}
+
 
   \pause
-  The product state $\ket{\phi}$ is uniquely specified by $n$ Pauli stabilizers
-  $P_1,\ldots,P_n$. Conjugate them through the preparation circuit:
-  \[
-    g_i=UP_iU^\dagger,
-    \qquad g_i\ket{\psi}=UP_i\ket{\phi}=\ket{\psi}.
-  \]
-
-  \pause
-  \emphword{Why DCP?} Conjugating Paulis by CNOT-dihedral gates gives DCP operators.
-  Unitary conjugation also preserves the uniquely fixed state.
-
-  \pause
-  \emphword{Answer to the first question}: $n$ independent commuting DCP generators suffice.
-\end{frame}
-
-\begin{frame}{From stabilizers to support and phases}
-  Let $G$ uniquely fix $\ket{\psi}$. Write its elements as $DX(v)$, with $D$ diagonal Clifford.
-
-  \pause
-  \emphword{Support}: collect all available shifts,
+  \emphword{DCP states are 3PP states}: let $G$ the DCP stabilizer group of $\ket{\psi}$. We note its $X$-part as:
   \[
     X(G)=\{v:DX(v)\in G\text{ for some diagonal }D\}.
   \]
-  A nonzero amplitude at $x_0$ forces nonzero amplitudes at every $x_0+v$.
-  Uniqueness forces a single such affine support: $S=x_0+X(G)$.
-  The diagonal stabilizers constrain which offset $x_0$ is allowed.
+
+  \emphword{Support}: $S=x_0+X(G)$, for a vector $x_0$ fixed by the diagonal stabilizers.
 
   \pause
-  \emphword{Phases}: choose stabilizers $g_i=D_iX(v_i)$ for a basis of $X(G)$.
-  If $D_i\ket{x}=\omega^{d_i(x)}\ket{x}$, their stabilizer equations fix
-  \[
-    q(x+v_i)-q(x)=-d_i(x)\pmod 8\qquad(x\in S).
-  \]
-
-  \pause
-  Combine the quadratic Clifford phases along a path from $x_0$.
-  Each binary choice of shift adds one factor, giving a third-order phase polynomial.
-  $\Rightarrow$ A 3PP state!
+  \emphword{Phases}: the diagonal factor in $DX(v)$ fixes the relative phase
+  between $x$ and $x+v$.
 \end{frame}
 
-\begin{frame}{Updating the DCP stabilizers}
-  \emphword{Unitary gates}: conjugate each generator. For $U\in G_3$, the result is still DCP:
+\begin{frame}{DCP stabilizer formalism}
+  \emphword{Question 2}: is every DCP state uniquely stabilized by an $n$-dimensional DCP subgroup? \pause \emphword{Yes!}
+
+  \pause
+  By the equivalence with 3PP states,
+  every DCP state is uniquely stabilized by
   \[
-    g_i\longmapsto Ug_iU^\dagger.
+    \langle U Z_1 U^\dag,\ldots,U Z_\ell U^\dag,U X_{\ell+1} U^\dag,\ldots,U X_{\ell+m} U^\dag \rangle
   \]
 
   \pause
-  \emphword{$Z$ measurements}: every DCP operator commutes or anticommutes with $Z(w)$.
-  Keep the commuting stabilizers and add the measured $\pm Z(w)$.
-  A deterministic measurement leaves the state unchanged, as in the Pauli case.
+  \emphword{Question 3}: can we build a \textit{DCP tableau simulator}, with update rules for compatible measurements?
 
   \pause
-  \emphword{$X$ measurements}: first check whether $v\in X(G)$.
-  If not, $S\ne S+v$ and the measurement is always compatible.
-  Otherwise choose $g=DX(v)\in G$, with $D\ket{x}=\omega^{d(x)}\ket{x}$.
-  Since $g\ket{\psi}=\ket{\psi}$,
-  \[
-    X(v)\ket{\psi}=D^{-1}\ket{\psi}
-    \quad\Rightarrow\quad
-    \Delta_v q(x)=-d(x)\pmod 8\quad(x\in S).
-  \]
-  Read the phase difference directly from $G$, then use the classification theorem.
+  \emphword{Unitary gates}: conjugate each generator.
 
   \pause
-  \emphword{Result}: compatibility tests and tableau updates take polynomial time.
+  \emphword{$Z$ measurements}: DCP operators commute or anticommute with $Z(w)$.
+  Keep commuting stabilizers and add the measured $\pm Z(w)$, as for Paulis.
+  Deterministic outcomes leave the state unchanged.
+
+  \pause
+  \emphword{$X$ measurements}: apply 3PP state compatibility conditions with $S=x_0+X(G)$ and $\Delta_v q(x)=-d(x)\pmod 8$, where $d(x)$ is the diagonal factor in $DX(v)\in G$, i.e. $D\ket{x}=\omega^{d(x)}\ket{x}$.
+
+  \pause
+  \emphword{Therefore}: compatibility tests and tableau updates take polynomial time.
 \end{frame}
 
 \sectionslide{Benchmarking our simulator}
@@ -538,7 +516,44 @@
   OOM = allocation above 20 GB. ERR = runtime error. Cultiv / Switch suffix = distance.\par}
 \end{frame}
 
-\begin{frame}{Future work}
+\begin{frame}{Discussion: summary}
+  \emphword{In summary}:
+  \begin{enumerate}
+    \item We have shown that CNOT-dihedral gates generate a class of states, which can be characterized by polynomial phases in the Schödinger picture, and DCP stabilizers in the Heisenberg picture.
+    \pause
+    \item We have classified all the measurements that are compatible with this class, making it useful for QEC.
+    \pause
+    \item We have implemented a simulator, MERLIN, that can simulate these circuits in polynomial time, and benchmarked it against other simulators.
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Discussion: parallel work}
+  \setbeamerfont{itemize/enumerate body}{size=\fontsize{9bp}{12bp}}
+  Lots of parallel work on the same topic, with different emphases and approaches:
+  \begin{enumerate}
+    \item \emphword{Takada, Bartlett and Williamson}\slidecite{takada2026exact}:
+      Clifford-stabilizer simulation of noisy magic states, closely related to our tableau approach.
+      \emphword{Our work}: we also give a phase-polynomial description.
+    \pause
+    \item \emphword{Magdalena de la Fuente and Scruby}\slidecite{fuente2026efficiently}:
+      spacetime sampling of syndromes and bounds on logical failure rates. \emphword{Our work}:
+      we track the quantum state.
+    \pause
+    \item \emphword{Fechisin et al.}\slidecite{fechisin2026clifford}:
+      3PP and DCP equivalence, generalized to Clifford-hierarchy.
+      \emphword{Our work}: we focus on circuit simulation.
+    \pause
+    \item \emphword{Xiao et al.}\slidecite{xiao2026efficient}:
+      polynomial-time syndrome and fidelity estimation for high-rate distillation, avoiding logical measurements.
+      \emphword{Our work}: more general $X$ measurements.
+  \end{enumerate}
+
+  \emphword{Our main distinguishing contribution}: full classification of $X$ measurements
+  preserving 3PP states.
+  \newline
+\end{frame}
+
+\begin{frame}{Discussion: future work}
   \begin{enumerate}
     \item There are still a few circuits that evade our simulation method (e.g. $H$-based cultivation, some more complicated distillation protocols, etc.). Can we extend our method to cover these cases?
     \item Can we formalize a notion of \emphword{"DCP detector error model"} for non-Clifford circuits?

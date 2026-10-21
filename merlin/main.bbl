@@ -19,6 +19,107 @@
 
 \refsection{0}
   \datalist[entry]{none/global//global/global/global}
+    \entry{surti2026efficient}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=4fc0767c5d2c23d87224130d5c5659fd}{%
+           family={Surti},
+           familyi={S\bibinitperiod},
+           given={Samyak},
+           giveni={S\bibinitperiod}}}%
+        {{hash=9d6bcad28b904ff8a23b45ab654063ba}{%
+           family={Daguerre},
+           familyi={D\bibinitperiod},
+           given={Lucas},
+           giveni={L\bibinitperiod}}}%
+        {{hash=ec2c789fb2a61abbe9cca61ea617522a}{%
+           family={Kim},
+           familyi={K\bibinitperiod},
+           given={Isaac\bibnamedelima H.},
+           giveni={I\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
+      }
+      \strng{namehash}{64ec6e982b81ec34adab3bc0df74d19a}
+      \strng{fullhash}{64ec6e982b81ec34adab3bc0df74d19a}
+      \strng{fullhashraw}{64ec6e982b81ec34adab3bc0df74d19a}
+      \strng{bibnamehash}{64ec6e982b81ec34adab3bc0df74d19a}
+      \strng{authorbibnamehash}{64ec6e982b81ec34adab3bc0df74d19a}
+      \strng{authornamehash}{64ec6e982b81ec34adab3bc0df74d19a}
+      \strng{authorfullhash}{64ec6e982b81ec34adab3bc0df74d19a}
+      \strng{authorfullhashraw}{64ec6e982b81ec34adab3bc0df74d19a}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eid}{020329}
+      \field{journaltitle}{PRX Quantum}
+      \field{number}{2}
+      \field{title}{Efficient simulation of logical magic state preparation protocols}
+      \field{volume}{7}
+      \field{year}{2026}
+      \verb{doi}
+      \verb 10.1103/fby6-xjbm
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1103/fby6-xjbm
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1103/fby6-xjbm
+      \endverb
+    \endentry
+    \entry{cross2016scalable}{article}{}{}
+      \name{author}{5}{}{%
+        {{hash=c04493cf8499c58c15078120b5a6737a}{%
+           family={Cross},
+           familyi={C\bibinitperiod},
+           given={Andrew\bibnamedelima W.},
+           giveni={A\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+        {{hash=2daf207680d6347dbd300ef9b8a397f8}{%
+           family={Magesan},
+           familyi={M\bibinitperiod},
+           given={Easwar},
+           giveni={E\bibinitperiod}}}%
+        {{hash=1b3e8c12eb951bb269c85b45b91a44cc}{%
+           family={Bishop},
+           familyi={B\bibinitperiod},
+           given={Lev\bibnamedelima S.},
+           giveni={L\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=5509489ab50cd678d68437275b870be5}{%
+           family={Smolin},
+           familyi={S\bibinitperiod},
+           given={John\bibnamedelima A.},
+           giveni={J\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=13ffee31f58f6a53a6d6969d093862dc}{%
+           family={Gambetta},
+           familyi={G\bibinitperiod},
+           given={Jay\bibnamedelima M.},
+           giveni={J\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+      }
+      \strng{namehash}{6a68d73a19d0e9a57cd652a880693ae3}
+      \strng{fullhash}{6a68d73a19d0e9a57cd652a880693ae3}
+      \strng{fullhashraw}{6a68d73a19d0e9a57cd652a880693ae3}
+      \strng{bibnamehash}{6a68d73a19d0e9a57cd652a880693ae3}
+      \strng{authorbibnamehash}{6a68d73a19d0e9a57cd652a880693ae3}
+      \strng{authornamehash}{6a68d73a19d0e9a57cd652a880693ae3}
+      \strng{authorfullhash}{6a68d73a19d0e9a57cd652a880693ae3}
+      \strng{authorfullhashraw}{6a68d73a19d0e9a57cd652a880693ae3}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eid}{16012}
+      \field{journaltitle}{npj Quantum Information}
+      \field{title}{Scalable randomised benchmarking of non-{Clifford} gates}
+      \field{volume}{2}
+      \field{year}{2016}
+      \verb{doi}
+      \verb 10.1038/npjqi.2016.12
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1038/npjqi.2016.12
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1038/npjqi.2016.12
+      \endverb
+    \endentry
     \entry{li2026transversal}{misc}{}{}
       \name{author}{3}{}{%
         {{hash=f92066ad9dcb7a0f7234be21b35c742d}{%
@@ -45,8 +146,8 @@
       \strng{authornamehash}{f0cec868ccac31d7b948fadb1e6c70e1}
       \strng{authorfullhash}{f0cec868ccac31d7b948fadb1e6c70e1}
       \strng{authorfullhashraw}{f0cec868ccac31d7b948fadb1e6c70e1}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{eprinttype}{arXiv}
@@ -91,8 +192,8 @@
       \strng{authornamehash}{0f973b574535be0c9f5c4d431c2dbe02}
       \strng{authorfullhash}{0f973b574535be0c9f5c4d431c2dbe02}
       \strng{authorfullhashraw}{0f973b574535be0c9f5c4d431c2dbe02}
-      \field{sortinit}{3}
-      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{eprinttype}{arXiv}
@@ -106,52 +207,6 @@
       \endverb
       \verb{url}
       \verb https://arxiv.org/abs/2604.01059
-      \endverb
-    \endentry
-    \entry{surti2026efficient}{article}{}{}
-      \name{author}{3}{}{%
-        {{hash=4fc0767c5d2c23d87224130d5c5659fd}{%
-           family={Surti},
-           familyi={S\bibinitperiod},
-           given={Samyak},
-           giveni={S\bibinitperiod}}}%
-        {{hash=9d6bcad28b904ff8a23b45ab654063ba}{%
-           family={Daguerre},
-           familyi={D\bibinitperiod},
-           given={Lucas},
-           giveni={L\bibinitperiod}}}%
-        {{hash=ec2c789fb2a61abbe9cca61ea617522a}{%
-           family={Kim},
-           familyi={K\bibinitperiod},
-           given={Isaac\bibnamedelima H.},
-           giveni={I\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
-      }
-      \strng{namehash}{64ec6e982b81ec34adab3bc0df74d19a}
-      \strng{fullhash}{64ec6e982b81ec34adab3bc0df74d19a}
-      \strng{fullhashraw}{64ec6e982b81ec34adab3bc0df74d19a}
-      \strng{bibnamehash}{64ec6e982b81ec34adab3bc0df74d19a}
-      \strng{authorbibnamehash}{64ec6e982b81ec34adab3bc0df74d19a}
-      \strng{authornamehash}{64ec6e982b81ec34adab3bc0df74d19a}
-      \strng{authorfullhash}{64ec6e982b81ec34adab3bc0df74d19a}
-      \strng{authorfullhashraw}{64ec6e982b81ec34adab3bc0df74d19a}
-      \field{sortinit}{4}
-      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{eid}{020329}
-      \field{journaltitle}{PRX Quantum}
-      \field{number}{2}
-      \field{title}{Efficient simulation of logical magic state preparation protocols}
-      \field{volume}{7}
-      \field{year}{2026}
-      \verb{doi}
-      \verb 10.1103/fby6-xjbm
-      \endverb
-      \verb{urlraw}
-      \verb https://doi.org/10.1103/fby6-xjbm
-      \endverb
-      \verb{url}
-      \verb https://doi.org/10.1103/fby6-xjbm
       \endverb
     \endentry
     \entry{chase2026clifft}{misc}{}{}
@@ -175,8 +230,8 @@
       \strng{authornamehash}{be3318eda97b41b27f3cf1186d8f5006}
       \strng{authorfullhash}{be3318eda97b41b27f3cf1186d8f5006}
       \strng{authorfullhashraw}{be3318eda97b41b27f3cf1186d8f5006}
-      \field{sortinit}{5}
-      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{eprinttype}{arXiv}
@@ -218,8 +273,8 @@
       \strng{authornamehash}{fa5bdff89225673aa9275cc8a98b9e2c}
       \strng{authorfullhash}{fa5bdff89225673aa9275cc8a98b9e2c}
       \strng{authorfullhashraw}{fa5bdff89225673aa9275cc8a98b9e2c}
-      \field{sortinit}{6}
-      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{shorttitle}
       \field{eprinttype}{arXiv}
@@ -234,6 +289,213 @@
       \endverb
       \verb{url}
       \verb https://arxiv.org/abs/2607.28600
+      \endverb
+    \endentry
+    \entry{takada2026exact}{misc}{}{}
+      \name{author}{3}{}{%
+        {{hash=0069fa23ad37f4173fc9ff3dec840b77}{%
+           family={Takada},
+           familyi={T\bibinitperiod},
+           given={Yugo},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=e3a83db257511112d5a9beb937511c0b}{%
+           family={Bartlett},
+           familyi={B\bibinitperiod},
+           given={Stephen\bibnamedelima D.},
+           giveni={S\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+        {{hash=69808c31a2b8fc30fa1546113265ac7c}{%
+           family={Williamson},
+           familyi={W\bibinitperiod},
+           given={Dominic\bibnamedelima J.},
+           giveni={D\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
+      \strng{namehash}{705cade1718511f1af69cc1c719f460e}
+      \strng{fullhash}{705cade1718511f1af69cc1c719f460e}
+      \strng{fullhashraw}{705cade1718511f1af69cc1c719f460e}
+      \strng{bibnamehash}{705cade1718511f1af69cc1c719f460e}
+      \strng{authorbibnamehash}{705cade1718511f1af69cc1c719f460e}
+      \strng{authornamehash}{705cade1718511f1af69cc1c719f460e}
+      \strng{authorfullhash}{705cade1718511f1af69cc1c719f460e}
+      \strng{authorfullhashraw}{705cade1718511f1af69cc1c719f460e}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprinttype}{arXiv}
+      \field{title}{Exact efficient simulation of noisy logical magic states using {Clifford} stabilizers}
+      \field{year}{2026}
+      \verb{eprint}
+      \verb 2609.16929
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2609.16929
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2609.16929
+      \endverb
+    \endentry
+    \entry{fuente2026efficiently}{misc}{}{}
+      \name{author}{2}{}{%
+        {{hash=c720b82f0bbebc46bd2562b2fd8bebcd}{%
+           family={{Magdalena de la Fuente}},
+           familyi={M\bibinitperiod},
+           given={Julio\bibnamedelima C.},
+           giveni={J\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+        {{hash=651faeb50963cc99903f3b906b161752}{%
+           family={Scruby},
+           familyi={S\bibinitperiod},
+           given={Thomas\bibnamedelima R.},
+           giveni={T\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+      }
+      \strng{namehash}{c69592e10128653e6cf6375990cb14d0}
+      \strng{fullhash}{c69592e10128653e6cf6375990cb14d0}
+      \strng{fullhashraw}{c69592e10128653e6cf6375990cb14d0}
+      \strng{bibnamehash}{c69592e10128653e6cf6375990cb14d0}
+      \strng{authorbibnamehash}{c69592e10128653e6cf6375990cb14d0}
+      \strng{authornamehash}{c69592e10128653e6cf6375990cb14d0}
+      \strng{authorfullhash}{c69592e10128653e6cf6375990cb14d0}
+      \strng{authorfullhashraw}{c69592e10128653e6cf6375990cb14d0}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprinttype}{arXiv}
+      \field{title}{Efficiently estimating failure rates of fault-tolerant logical non-{Clifford} blocks}
+      \field{year}{2026}
+      \verb{eprint}
+      \verb 2609.19485
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2609.19485
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2609.19485
+      \endverb
+    \endentry
+    \entry{fechisin2026clifford}{misc}{}{}
+      \name{author}{7}{}{%
+        {{hash=b80cd873fc0d3c5d080b841f0a3466f5}{%
+           family={Fechisin},
+           familyi={F\bibinitperiod},
+           given={Christopher},
+           giveni={C\bibinitperiod}}}%
+        {{hash=72e490dd4b67932882500308c97c2f88}{%
+           family={Cooney},
+           familyi={C\bibinitperiod},
+           given={Kieran},
+           giveni={K\bibinitperiod}}}%
+        {{hash=95ca07e14669c6e740f2924a8ea831cf}{%
+           family={Raja},
+           familyi={R\bibinitperiod},
+           given={Mathi},
+           giveni={M\bibinitperiod}}}%
+        {{hash=db0256bf77f3727d8d424c610129db47}{%
+           family={Albert},
+           familyi={A\bibinitperiod},
+           given={Victor\bibnamedelima V.},
+           giveni={V\bibinitperiod\bibinitdelim V\bibinitperiod}}}%
+        {{hash=69808c31a2b8fc30fa1546113265ac7c}{%
+           family={Williamson},
+           familyi={W\bibinitperiod},
+           given={Dominic\bibnamedelima J.},
+           giveni={D\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+        {{hash=d681529c109edcc8767120d8236ff429}{%
+           family={Kawagoe},
+           familyi={K\bibinitperiod},
+           given={Kyle},
+           giveni={K\bibinitperiod}}}%
+        {{hash=5cc46dfd624f32cf142d9fc980711686}{%
+           family={Musser},
+           familyi={M\bibinitperiod},
+           given={Seth},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{30d9c0693272bca6f569bd89d73e5b97}
+      \strng{fullhash}{30d9c0693272bca6f569bd89d73e5b97}
+      \strng{fullhashraw}{30d9c0693272bca6f569bd89d73e5b97}
+      \strng{bibnamehash}{30d9c0693272bca6f569bd89d73e5b97}
+      \strng{authorbibnamehash}{30d9c0693272bca6f569bd89d73e5b97}
+      \strng{authornamehash}{30d9c0693272bca6f569bd89d73e5b97}
+      \strng{authorfullhash}{30d9c0693272bca6f569bd89d73e5b97}
+      \strng{authorfullhashraw}{30d9c0693272bca6f569bd89d73e5b97}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprinttype}{arXiv}
+      \field{title}{{Clifford}-hierarchy stabilizer formalism with applications to twisted quantum doubles}
+      \field{year}{2026}
+      \verb{eprint}
+      \verb 2610.00464
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2610.00464
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2610.00464
+      \endverb
+    \endentry
+    \entry{xiao2026efficient}{misc}{}{}
+      \name{author}{7}{}{%
+        {{hash=7f338b629083a96ca2619941846819b6}{%
+           family={Xiao},
+           familyi={X\bibinitperiod},
+           given={Xiao},
+           giveni={X\bibinitperiod}}}%
+        {{hash=ef4bc0c6c97353b8ff0534c917bdfbbb}{%
+           family={Hangleiter},
+           familyi={H\bibinitperiod},
+           given={Dominik},
+           giveni={D\bibinitperiod}}}%
+        {{hash=2bcf69583d91e46889ac0561795b8255}{%
+           family={{Bonilla Ataides}},
+           familyi={B\bibinitperiod},
+           given={J.\bibnamedelimi Pablo},
+           giveni={J\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+        {{hash=7bdfd8953ede5421fb774adfe6d548a9}{%
+           family={Mehta},
+           familyi={M\bibinitperiod},
+           given={Rohan},
+           giveni={R\bibinitperiod}}}%
+        {{hash=c9f9fc7680567afb4706ad64ae03c00c}{%
+           family={Menon},
+           familyi={M\bibinitperiod},
+           given={Varun},
+           giveni={V\bibinitperiod}}}%
+        {{hash=8fd921a549ae6718702b6c8c84fef487}{%
+           family={Lukin},
+           familyi={L\bibinitperiod},
+           given={Mikhail\bibnamedelima D.},
+           giveni={M\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+        {{hash=d09cda4420ec958a2d8e850c73432c07}{%
+           family={Gullans},
+           familyi={G\bibinitperiod},
+           given={Michael\bibnamedelima J.},
+           giveni={M\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
+      \strng{namehash}{08a111565998b48e3ccdf3b44a73a08f}
+      \strng{fullhash}{08a111565998b48e3ccdf3b44a73a08f}
+      \strng{fullhashraw}{08a111565998b48e3ccdf3b44a73a08f}
+      \strng{bibnamehash}{08a111565998b48e3ccdf3b44a73a08f}
+      \strng{authorbibnamehash}{08a111565998b48e3ccdf3b44a73a08f}
+      \strng{authornamehash}{08a111565998b48e3ccdf3b44a73a08f}
+      \strng{authorfullhash}{08a111565998b48e3ccdf3b44a73a08f}
+      \strng{authorfullhashraw}{08a111565998b48e3ccdf3b44a73a08f}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprinttype}{arXiv}
+      \field{title}{Efficient fidelity simulation of high-rate magic distillation circuits}
+      \field{year}{2026}
+      \verb{eprint}
+      \verb 2610.03605
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2610.03605
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2610.03605
       \endverb
     \endentry
   \enddatalist
