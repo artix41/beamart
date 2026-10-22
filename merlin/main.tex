@@ -65,9 +65,9 @@
   }
   \termexplanation{3}{Polynomial time}{%
       Polynomial-time complexity in the number of qubits and circuit depth.
-
+      \newline \newline
       No exponential dependence in the number of $T$ gates!
-
+      \newline \newline
       No exponential in the number of logical qubits, in contrast to previous work\slidecite{surti2026efficient}.
   }
 \end{frame}
@@ -85,6 +85,9 @@
 
     \pause
     \emphword{Initial state}: $\ket{0}^{\otimes \ell} \ket{+}^{\otimes m}$
+
+    \pause
+    \emphword{Goal}: show that states of the form $U \bigl(\ket{0}^{\otimes \ell} \ket{+}^{\otimes m}\bigr)$ for $U \in G_3$ can be represented efficiently.
 
     \pause
     \emphword{Question}: what happens when we apply $G_3$ gates to $\ket{0}^{\otimes \ell} \ket{+}^{\otimes m}$?
@@ -365,7 +368,7 @@
 \sectionslide{DCP stabilizer formalism}
 
 \begin{frame}{DCP stabilizer formalism}
-  \emphword{Question}: can we come up with a stabilizer picture for
+  \emphword{Question}: can we come up with a stabilizer picture for 3PP states?
 
   \pause
   \emphword{Observation}: if we start with a state stabilized by a Pauli operator $S$, and apply a gate $U \in G_3$, then the new state is stabilized by $S'=U S U^\dag$, \emphword{which is a DCP operator}.
